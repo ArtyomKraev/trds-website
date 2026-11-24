@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Начало работы с TRDS: макеты в Figma, токены, документация и инструкции для ИИ-агентов.">
+    <title>Начало работы — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/cards.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/cards.js?v=20261124-motion" defer></script>
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+  </head>
+  <body class="docs-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html" aria-current="page">Начало работы</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/START-HERE.md">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/TYPOGRAPHY.md">Типографика</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/TOKENS-INDEX.md">Цвета и темы</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/screen-layout.md">Сетки и структура</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/data/foundations.json">Отступы и размеры</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/TOKEN-POLICY.md">Дизайн-токены</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/ICONS-INDEX.md">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-digit.md">Code Digit</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-field.md">Code Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown-item.md">Dropdown Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-control.md">Selection Control</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-item.md">Selection Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-cell.md">Table Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-header-cell.md">Table Header Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Table Row</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-area.md">Text Area</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-field.md">Text Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/toggle.md">Toggle</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/upload-zone.md">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main" id="main" tabindex="-1">
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">Начало работы</h1>
+            <p>TRDS — готовые компоненты, стили и правила для интерфейсов.<br> Выберите материалы для своей задачи и начните собирать.</p>
+          </section>
+
+          <div class="docs-materials">
+            <nav class="resource-grid" aria-label="Материалы TRDS">
+              <a class="card resource-card" data-tilt="4" data-depth="6" href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx" aria-labelledby="figma-title">
+                <div class="card__surface resource-card__surface">
+                  <span class="resource-card__brand"><img src="assets/images/figma.svg" width="24" height="24" alt="">Figma</span>
+                  <div class="resource-card__text">
+                    <h2 id="figma-title">Макеты и компоненты</h2>
+                    <p>Кнопки, поля, стили и шаблоны экранов.<br> Откройте файл и соберите свой макет.</p>
+                  </div>
+                </div>
+              </a>
+              <a class="card resource-card" data-tilt="4" data-depth="6" href="https://github.com/ArtyomKraev/trds-agent-ready" aria-labelledby="github-title">
+                <div class="card__surface resource-card__surface">
+                  <span class="resource-card__brand"><img src="assets/images/github.svg" width="24" height="24" alt="">GitHub</span>
+                  <div class="resource-card__text">
+                    <h2 id="github-title">Токены и документация</h2>
+                    <p>Значения стилей, свойства компонентов<br> и инструкции для работы с ИИ-агентами.</p>
+                  </div>
+                </div>
+              </a>
+            </nav>
+            <a class="card agent-note" data-tilt="2" data-depth="3" href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/START-HERE.md" aria-labelledby="agents-title">
+              <div class="card__surface agent-note__surface">
+                <div class="agent-note__text">
+                  <h2 id="agents-title">Собираете интерфейс с ИИ?</h2>
+                  <p>Передайте агенту ссылку на GitHub и стартовую инструкцию.<br> Так он сможет найти компоненты и использовать стили TRDS.</p>
+                </div>
+                <!-- Детали собираются в интерфейс при наведении и фокусе. -->
+                <svg class="agent-art" width="340" height="128" viewBox="0 0 340 128" aria-hidden="true">
+                  <g fill="none" stroke="currentColor">
+                    <path d="M56 64H300M182 8V120" opacity=".12"/>
+                    <rect x="143" y="16" width="112" height="96" rx="10" opacity=".32"/>
+                    <rect x="154" y="28" width="90" height="13" rx="4" opacity=".3"/>
+                    <rect x="154" y="49" width="29" height="51" rx="5" opacity=".25"/>
+                    <rect x="191" y="49" width="53" height="22" rx="5" opacity=".25"/>
+                    <rect x="191" y="79" width="53" height="21" rx="5" opacity=".25"/>
+                  </g>
+                  <rect class="agent-art__accent" x="190" y="49" width="54" height="22" rx="5" fill="var(--color-accent-fill)"/>
+                  <g class="agent-art__panel">
+                    <rect x="83" y="26" width="31" height="51" rx="5" fill="var(--color-accent-surface)" stroke="currentColor"/>
+                  </g>
+                  <g class="agent-art__tile">
+                    <rect x="113" y="89" width="22" height="22" rx="5" fill="currentColor"/>
+                  </g>
+                  <circle class="agent-art__dot" cx="278" cy="41" r="4" fill="currentColor"/>
+                </svg>
+              </div>
+            </a>
+          </div>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

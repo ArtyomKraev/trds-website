@@ -9,6 +9,9 @@
 
   cards.forEach(card => {
     const surface = card.querySelector('.card__surface');
+    // Широким карточкам задаём более спокойный наклон через data-атрибуты.
+    const tilt = Number(card.dataset?.tilt ?? settings.tilt);
+    const depth = Number(card.dataset?.depth ?? settings.depth);
     const current = { x: 0, y: 0, depth: 0 };
     const target = { x: 0, y: 0, depth: 0 };
     const velocity = { x: 0, y: 0, depth: 0 };
@@ -68,9 +71,9 @@
       const box = card.getBoundingClientRect();
       const x = Math.max(-1, Math.min(1, (event.clientX - box.left) / box.width * 2 - 1));
       const y = Math.max(-1, Math.min(1, (event.clientY - box.top) / box.height * 2 - 1));
-      target.x = -y * settings.tilt;
-      target.y = x * settings.tilt;
-      target.depth = -settings.depth;
+      target.x = -y * tilt;
+      target.y = x * tilt;
+      target.depth = -depth;
       card.classList.add('is-hovered');
       start();
     }
