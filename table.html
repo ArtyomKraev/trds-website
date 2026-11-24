@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Ячейки, заголовки и строки в одном примере">
+    <title>Таблица — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-entrance-direction">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/components.css?v=20261124-transition-fixes">
+    <link rel="stylesheet" href="css/panels.css?v=20261124-panels-2">
+    <script src="js/panels.js?v=20261124-panels-2" defer></script>
+    <script src="js/preview-grid.js?v=20261124-preview-polish" defer></script>
+  </head>
+  <body class="docs-page components-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html">Типографика</a>
+              <a href="colors.html">Цвета и темы</a>
+              <a href="grids.html">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="icons.html">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="button.html">Button</a>
+                <a href="badge.html">Badge</a>
+                <a href="chip.html">Chip</a>
+                <a href="dropdown.html">Dropdown</a>
+                <a href="link.html">Link</a>
+                <a href="modal.html">Modal</a>
+                <a href="selection.html">Selection</a>
+                <a href="tab.html">Tab</a>
+                <a href="table.html" aria-current="page">Table</a>
+                <a href="text-field.html">Text Fields</a>
+                <a href="toggle.html">Toggle</a>
+                <a href="tooltip.html">Tooltip</a>
+                <a href="upload-zone.html">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main components-main" id="main" tabindex="-1">
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">Таблица</h1>
+            <p>Ячейки, заголовки и строки в одном примере</p>
+          </section>
+          <form class="playground panel-playground" data-panel-component="table" novalidate>
+            <div class="playground__header"><span>Пример</span><button class="play-reset" type="reset">Сбросить</button></div>
+            <div class="playground__body">
+              <div class="playground__preview"><div class="table-scroll" role="region" aria-label="Участники проекта" tabindex="0"><table class="demo-table" aria-label="Участники проекта"><colgroup><col class="table-check-col"><col class="table-name-col"><col class="table-email-col"><col></colgroup><thead><tr><th scope="col"><span class="visually-hidden">Выбор</span></th><th scope="col" aria-sort="ascending"><button class="table-sort" type="button"><span>Участник</span><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="m5 9 3-3 3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></th><th scope="col">Почта</th><th class="table-value-heading" scope="col">Роль</th></tr></thead><tbody><tr data-row="0" data-selected="false"><td><label class="ds-choice"><input class="ds-choice__input row-check" type="checkbox" aria-label="Выбрать: Анна Смирнова"><span class="ds-choice__mark"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label></td><td class="table-name">Анна Смирнова</td><td>anna@company.ru</td><td class="table-value">Редактор</td></tr><tr data-row="1" data-selected="false"><td><label class="ds-choice"><input class="ds-choice__input row-check" type="checkbox" aria-label="Выбрать: Ирина Ким"><span class="ds-choice__mark"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label></td><td class="table-name">Ирина Ким</td><td>irina@company.ru</td><td class="table-value">Редактор</td></tr><tr data-row="2" data-selected="true"><td><label class="ds-choice"><input class="ds-choice__input row-check" type="checkbox" aria-label="Выбрать: Марк Волков" checked><span class="ds-choice__mark"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 12 4 4 8-8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></label></td><td class="table-name">Марк Волков</td><td>mark@company.ru</td><td class="table-value">Читатель</td></tr></tbody></table></div></div>
+              <div class="playground__settings" aria-label="Настройки примера"><div class="table-settings-group"><h2>Ячейка</h2><fieldset class="play-setting" data-setting="cell"><legend>Тип</legend><div class="play-options"><label class="play-option"><input type="radio" name="cell" value="text" checked><span>Text</span></label><label class="play-option"><input type="radio" name="cell" value="number"><span>Number</span></label><label class="play-option"><input type="radio" name="cell" value="link"><span>Link</span></label><label class="play-option"><input type="radio" name="cell" value="badge"><span>Badge</span></label><label class="play-option"><input type="radio" name="cell" value="custom"><span>Custom</span></label></div></fieldset></div><div class="table-settings-group"><h2>Заголовок</h2><fieldset class="play-setting" data-setting="sort"><legend>Порядок</legend><div class="play-options"><label class="play-option"><input type="radio" name="sort" value="none"><span>None</span></label><label class="play-option"><input type="radio" name="sort" value="ascending" checked><span>Ascending</span></label><label class="play-option"><input type="radio" name="sort" value="descending"><span>Descending</span></label></div></fieldset><fieldset class="play-setting" data-setting="align"><legend>Выравнивание</legend><div class="play-options"><label class="play-option"><input type="radio" name="align" value="left" checked><span>Left</span></label><label class="play-option"><input type="radio" name="align" value="right"><span>Right</span></label></div></fieldset></div><div class="table-settings-group"><h2>Строка</h2><fieldset class="play-setting" data-setting="selected"><legend>Выбор строки</legend><div class="play-options"><label class="play-option"><input type="radio" name="selected" value="false"><span>Не выбрана</span></label><label class="play-option"><input type="radio" name="selected" value="true" checked><span>Выбрана</span></label></div></fieldset><fieldset class="play-setting" data-setting="state"><legend>Состояние</legend><div class="play-options"><label class="play-option"><input type="radio" name="state" value="default" checked><span>Default</span></label><label class="play-option"><input type="radio" name="state" value="hover"><span>Hover</span></label></div></fieldset></div></div>
+            </div>
+            <span class="visually-hidden panel-status" role="status" aria-live="polite"></span>
+          </form>
+          <dialog class="member-dialog" aria-labelledby="member-title"><div class="modal-heading"><h2 id="member-title"></h2><button class="panel-icon member-close" type="button" aria-label="Закрыть карточку"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div><p class="member-email"></p><p class="member-role"></p></dialog>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
