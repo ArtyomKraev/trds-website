@@ -15,7 +15,10 @@
 .icon-search:focus-within { background: var(--color-surface-raised); color: var(--color-content-accent); }
 .icon-search input { width: 100%; min-width: 0; height: 3rem; padding: 0; border: 0; outline: none; background: transparent; color: var(--color-content-primary); }
 .icon-search input::placeholder { color: var(--color-content-tertiary); opacity: 1; }
-.icon-search input::-webkit-search-cancel-button { cursor: pointer; }
+.icon-search input::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
+.icons-main .icon-search-clear { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 2rem; height: 2rem; padding: .25rem; border-radius: .25rem; background: transparent; color: var(--color-content-tertiary); }
+.icon-search-clear svg { width: 1.5rem; height: 1.5rem; }
+.icons-main .icon-search-clear:hover, .icons-main .icon-search-clear:focus-visible { color: var(--color-content-primary); }
 .icons-library-link { display: flex; align-items: center; justify-content: flex-end; gap: .5rem; color: var(--color-content-accent); font-size: .875rem; line-height: 1.25rem; }
 .icons-library-link .external-icon { stroke: currentColor; }
 .icons-library-link:focus-visible .ds-link__label::after { transform: scaleX(1); }

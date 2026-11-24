@@ -37,6 +37,7 @@
     icon.name, labels[icon.category], ...shortName(icon).toLowerCase().split(/\W+/).map((word) => aliases[word] || ''),
   ].join(' '))]));
   const search = document.getElementById('icon-search');
+  const clearSearch = document.getElementById('icon-search-clear');
   const filters = document.querySelector('.icon-filters');
   const track = document.querySelector('.icon-category-track');
   const categoryButtons = [...document.querySelectorAll('[data-category]')];
@@ -300,9 +301,20 @@
   document.addEventListener('pointerdown', (event) => {
     if (menuOpen && !moreMenu.contains(event.target) && !more.contains(event.target)) closeMenu();
   });
-  search.addEventListener('input', () => { pageIndex = 0; render(); });
+  const updateSearch = () => {
+    clearSearch.hidden = !search.value;
+    pageIndex = 0;
+    render();
+  };
+  search.addEventListener('input', updateSearch);
+  clearSearch.addEventListener('click', () => {
+    search.value = '';
+    updateSearch();
+    search.focus({ preventScroll: true });
+  });
   document.getElementById('icon-reset').addEventListener('click', () => {
     search.value = '';
+    clearSearch.hidden = true;
     chooseCategory('all');
     search.focus();
   });
@@ -361,6 +373,7 @@
   grid.querySelectorAll('[data-icon-id]').forEach((tile) => tile.setAttribute('role', 'button'));
   if (complete) {
     search.disabled = false;
+    clearSearch.hidden = !search.value;
     categoryButtons.forEach((button) => { button.disabled = false; });
     more.disabled = false;
     render();
