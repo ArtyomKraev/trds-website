@@ -1,0 +1,60 @@
+/* User-edited Paper: 500px copy + 80px gap + 720px illustration at 1600px. */
+.not-found-page {
+  --color-decorative-orange-content: #ffbba1;
+}
+.not-found-page .docs-header { position: relative; z-index: 1; flex-shrink: 0; }
+.not-found-page .dot-field { max-height: none; }
+.orbit-main {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  padding: 3rem 4rem;
+}
+.orbit-main:focus { outline: none; }
+.orbit-scene {
+  display: grid;
+  grid-template-columns: 500fr 720fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  width: 100%;
+  max-width: 81.25rem;
+  min-height: 40rem;
+  margin-inline: auto;
+  padding-bottom: 1.25rem;
+}
+.orbit-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 3rem; min-width: 0; }
+.orbit-message { display: flex; flex-direction: column; gap: .5rem; }
+.orbit-message h1 { font-size: clamp(2.25rem, 3.5vw, 3.5rem); line-height: 1.107143; }
+.orbit-message p { color: var(--color-content-secondary); font-size: 1.125rem; line-height: 1.555556; }
+.orbit-copy .button { min-height: 3rem; font-size: 1rem; line-height: 1.5; transition: background-color 150ms ease, transform 260ms cubic-bezier(.2,.8,.2,1); }
+.orbit-copy .button:active { transform: scale(.96); }
+.orbit-art { display: block; width: 100%; height: auto; overflow: visible; }
+.orbit-footer { margin-inline: 4rem; padding-block: 1.5rem 2.5rem; border-color: var(--color-border-subtle); color: var(--color-content-tertiary); line-height: 1.25rem; }
+@media (prefers-reduced-motion: no-preference) {
+  .orbit-copy { animation: orbit-arrive 650ms cubic-bezier(.16,1,.3,1) both; }
+  .orbit-art { animation: orbit-arrive 900ms 100ms cubic-bezier(.16,1,.3,1) both; }
+  @keyframes orbit-arrive { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (max-width: 62.5rem) {
+  .orbit-main { padding: 2.5rem 2rem 4rem; }
+  .orbit-scene { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 1.5rem; min-height: 0; padding: 0; }
+  .orbit-art { grid-row: 1; max-width: 33rem; }
+  .orbit-copy { align-items: center; text-align: center; gap: 2rem; max-width: 31.25rem; }
+  .orbit-message h1 { font-size: 2.75rem; }
+  .orbit-footer { margin-inline: 2rem; }
+}
+@media (max-width: 40rem) {
+  .not-found-page .docs-header { min-height: 5rem; padding-inline: 1.25rem; gap: 1rem; }
+  .not-found-page .docs-header__links { gap: 1.25rem; }
+  .not-found-page .dot-field { top: 5rem; height: calc(100% - 5rem); }
+  .orbit-main { padding: 1.5rem 1.25rem 3rem; }
+  .orbit-scene { align-content: center; gap: 1rem; }
+  .orbit-art { max-width: 24rem; }
+  .orbit-message h1 { font-size: clamp(1.875rem, 8.5vw, 2.5rem); line-height: 1.15; }
+  .orbit-message p { font-size: 1rem; line-height: 1.5; }
+  .orbit-footer { margin-inline: 1.25rem; padding-bottom: 1.5rem; gap: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-copy .button { transition: none; transform: none; }
+}
