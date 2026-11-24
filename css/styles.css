@@ -1,0 +1,434 @@
+/* 1. Шрифты хранятся локально: сайт не зависит от Google Fonts. */
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto-regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto Flex";
+  src: url("../assets/fonts/roboto-flex.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+}
+
+/* 2. Семантические токены TRDS, тёмная тема. Цвета меняются здесь. */
+:root {
+  color-scheme: dark;
+  --color-surface-page: #141617;
+  --color-surface-default: #1d1e1f;
+  --color-surface-raised: #292a2b;
+  --color-surface-inverse: #edeeef;
+  --color-surface-hover: #393a3b;
+  --color-surface-pressed: #4b4c4d;
+  --color-content-primary: #ffffff;
+  --color-content-secondary: #c8c9ca;
+  --color-content-disabled: #606162;
+  --color-content-accent: #bbd7ff;
+  --color-border-default: #393a3b;
+  --color-accent-fill: #0a69da;
+  --color-accent-hover: #0054b5;
+  --color-accent-pressed: #00397f;
+  --color-focus-ring: #97c2ff;
+  --font-body: "Roboto", Arial, sans-serif;
+  --font-heading: "Roboto Flex", Arial, sans-serif;
+  --content-width: 75rem; /* 1200px: на экране 1600px поля равны 200px. */
+  --radius-card: 1rem;
+  --radius-pill: 9999px;
+}
+
+/* 3. Базовая настройка и общий контейнер. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 20rem;
+  background: var(--color-surface-page);
+  color: var(--color-content-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, p {
+
+  margin: 0;
+
+}
+img {
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 4px;
+}
+
+.container {
+  width: min(var(--content-width), calc(100% - 3rem));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  padding: .75rem 1rem;
+  background: var(--color-surface-raised);
+  border-radius: .5rem;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+
+  transform: translateY(0);
+
+}
+
+/* 4. Шапка и логотип: актуальная ручная правка из Paper. */
+.site-header {
+  display: flex;
+  align-items: center;
+  height: 6rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo__text {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 850;
+  line-height: .9;
+  letter-spacing: -.02em;
+}
+
+/* 5. Вводный блок и два варианта кнопок-ссылок. */
+.main {
+  padding-block: 4rem 7.125rem;
+}
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.hero__intro {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+h1, h2 {
+
+  font-family: var(--font-heading);
+
+  font-weight: 600;
+
+}
+h1 {
+  font-size: 2rem;
+  line-height: 1.125;
+}
+h2 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.hero__description {
+  color: var(--color-content-secondary);
+  font-size: 1.125rem;
+  line-height: 1.444444;
+}
+
+.hero__actions {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: .5rem;
+
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 3.5rem;
+  padding: .75rem 1.5rem;
+  border-radius: var(--radius-pill);
+  font-size: 1.125rem;
+  line-height: 1.444444;
+  transition: background-color 150ms ease;
+}
+
+.button img {
+
+  flex-shrink: 0;
+
+}
+.button--accent {
+  background: var(--color-accent-fill);
+}
+.button--secondary {
+  background: var(--color-surface-raised);
+}
+.button--accent:active {
+  background: var(--color-accent-pressed);
+}
+.button--secondary:active {
+  background: var(--color-surface-pressed);
+}
+
+/* 6. Карточки. Текст в потоке; иллюстрации прижаты к нижнему краю. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 6.25rem;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  min-height: 22.5rem;
+  padding: 2rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-card);
+  background: linear-gradient(145deg in oklab, var(--color-surface-default) 30%, var(--color-surface-page));
+  background-origin: border-box;
+  transition: border-color 150ms ease;
+}
+
+.card__content {
+
+  position: relative;
+
+  z-index: 1;
+
+}
+.card p {
+  margin-top: .75rem;
+  color: var(--color-content-secondary);
+}
+
+/* Фиксированная сцена из макета центрируется и обрезается краями карточки. */
+.card__art {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 387px;
+  height: 218px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.foundations-art__type {
+  position: absolute;
+  top: 23px;
+  left: 146px;
+  color: var(--color-content-secondary);
+  font-family: var(--font-heading);
+  font-size: 100px;
+  font-weight: 500;
+  line-height: 116px;
+  letter-spacing: -.055em;
+}
+
+.palette {
+  position: absolute;
+  top: 163px;
+  left: 81px;
+  display: flex;
+  width: 225px;
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+}
+
+.palette__swatch {
+
+  flex: 0 0 45px;
+
+}
+.palette__swatch--raised {
+  background: var(--color-surface-raised);
+}
+.palette__swatch--muted {
+  background: var(--color-content-disabled);
+}
+.palette__swatch--inverse {
+  background: var(--color-surface-inverse);
+}
+.palette__swatch--accent {
+  background: var(--color-accent-fill);
+}
+.palette__swatch--light {
+  background: var(--color-content-accent);
+}
+
+.demo-panel {
+  position: absolute;
+  top: 62px;
+  left: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 298px;
+  height: 178px;
+  padding: 24px;
+  border: 1px solid var(--color-content-disabled);
+  border-radius: 12px;
+  background: linear-gradient(135deg in oklab, var(--color-surface-raised), var(--color-surface-page));
+  background-origin: border-box;
+}
+
+.demo-panel__row {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  min-height: 32px;
+
+}
+.demo-panel__checks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.demo-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--color-content-disabled);
+  border-radius: 6px;
+}
+.demo-toggle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 52px;
+  height: 30px;
+  padding: 3px;
+  background: var(--color-accent-fill);
+  border-radius: var(--radius-pill);
+}
+.demo-toggle span {
+  width: 24px;
+  height: 24px;
+  background: var(--color-surface-inverse);
+  border-radius: 50%;
+}
+.demo-slider {
+  display: flex;
+  align-items: center;
+  width: 248px;
+  min-height: 16px;
+}
+.demo-slider__fill {
+  width: 141px;
+  height: 3px;
+  background: var(--color-content-accent);
+}
+.demo-slider__thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-surface-inverse);
+}
+.demo-slider__track {
+  flex: 1;
+  height: 3px;
+  background: var(--color-border-default);
+}
+.demo-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+  min-height: 40px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
+  color: var(--color-content-secondary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+/* 7. Hover только для устройств с мышью; клавиатурный фокус работает везде. */
+@media (hover: hover) {
+  .button--accent:hover {
+    background: var(--color-accent-hover);
+  }
+  .button--secondary:hover {
+    background: var(--color-surface-hover);
+  }
+  .card:hover {
+    border-color: var(--color-content-disabled);
+  }
+}
+
+/* 8. Адаптив: три колонки сменяются одной до того, как текст станет тесным. */
+@media (max-width: 68rem) {
+  .cards {
+    grid-template-columns: 1fr;
+    margin-top: 4rem;
+  }
+  .card {
+    min-height: 22.5rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .container {
+    width: calc(100% - 2.5rem);
+  }
+  .site-header {
+    height: 5rem;
+  }
+  .main {
+    padding-block: 2.5rem 3rem;
+  }
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  .hero__description {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .hero {
+    gap: 2rem;
+  }
+  .card {
+    padding: 1.5rem;
+  }
+  .card p br {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button, .card {
+    transition: none;
+  }
+}

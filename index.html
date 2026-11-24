@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="TRDS — принципы, компоненты и инструменты для создания интерфейсов.">
+    <title>TRDS — единая среда для дизайна и разработки</title>
+    <link rel="icon" href="assets/images/logo-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+    <!-- Знак экспортирован из Paper; надпись остаётся обычным текстом. -->
+    <header class="site-header container">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+    </header>
+
+    <main class="main container" id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__intro">
+          <h1 id="hero-title">Единая среда для дизайна и разработки</h1>
+          <p class="hero__description">Принципы, компоненты и инструменты для создания интерфейсов</p>
+        </div>
+        <!-- Это ссылки, оформленные как кнопки: переходы работают без JavaScript. -->
+        <nav class="hero__actions" aria-label="Ресурсы TRDS">
+          <a class="button button--accent" href="https://github.com/ArtyomKraev/trds-agent-ready">
+            <img src="assets/images/github.svg" width="20" height="20" alt="">
+            <span>Github</span>
+          </a>
+          <a class="button button--secondary" href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx">
+            <img src="assets/images/figma.svg" width="20" height="20" alt="">
+            <span>Figma</span>
+          </a>
+        </nav>
+      </section>
+
+      <!-- До переноса внутренних страниц карточки ведут в исходную документацию. -->
+      <nav class="cards" aria-label="Разделы дизайн-системы">
+        <a class="card" href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/START-HERE.md" aria-labelledby="documentation-title">
+          <div class="card__content">
+            <h2 id="documentation-title">Документация</h2>
+            <p>Начало работы, правила сборки<br> и работа с агентами</p>
+          </div>
+          <img class="card__art" src="assets/images/documentation.svg" width="387" height="218" alt="">
+        </a>
+
+        <a class="card" href="https://github.com/ArtyomKraev/trds-agent-ready/tree/main/design-system#readme" aria-labelledby="foundations-title">
+          <div class="card__content">
+            <h2 id="foundations-title">Основы</h2>
+            <p>Цвета, типографика, сетки,<br> токены и иконки</p>
+          </div>
+          <!-- Декоративная иллюстрация: сетка SVG + текст + палитра на CSS. -->
+          <div class="card__art foundations-art" aria-hidden="true">
+            <img src="assets/images/foundations-grid.svg" width="387" height="218" alt="">
+            <span class="foundations-art__type">Аа</span>
+            <div class="palette">
+              <span class="palette__swatch palette__swatch--raised"></span>
+              <span class="palette__swatch palette__swatch--muted"></span>
+              <span class="palette__swatch palette__swatch--inverse"></span>
+              <span class="palette__swatch palette__swatch--accent"></span>
+              <span class="palette__swatch palette__swatch--light"></span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="https://github.com/ArtyomKraev/trds-agent-ready/tree/main/design-system/components" aria-labelledby="components-title">
+          <div class="card__content">
+            <h2 id="components-title">Компоненты</h2>
+            <p>Элементы интерфейса,<br> их варианты и состояния</p>
+          </div>
+          <!-- Контролы внутри картинки декоративные, поэтому здесь нет input/button. -->
+          <div class="card__art components-art" aria-hidden="true">
+            <img src="assets/images/components-layers.svg" width="387" height="218" alt="">
+            <div class="demo-panel">
+              <div class="demo-panel__row">
+                <div class="demo-panel__checks">
+                  <img src="assets/images/checkbox.svg" width="24" height="24" alt="">
+                  <span class="demo-checkbox"></span>
+                </div>
+                <span class="demo-toggle"><span></span></span>
+              </div>
+              <div class="demo-slider">
+                <span class="demo-slider__fill"></span>
+                <span class="demo-slider__thumb"></span>
+                <span class="demo-slider__track"></span>
+              </div>
+              <span class="demo-button">Продолжить</span>
+            </div>
+          </div>
+        </a>
+      </nav>
+    </main>
+  </body>
+</html>
