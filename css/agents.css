@@ -1,0 +1,90 @@
+/* Статичная страница: параметры и цвета из выбранного макета Paper. */
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../assets/fonts/roboto-mono.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 700;
+  font-display: swap;
+}
+.agents-page .docs-intro p { max-width: 50rem; }
+.agent-instruction {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border-radius: 1rem;
+  background: var(--color-surface-default);
+}
+.agent-instruction__header, .agent-commands__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.agent-instruction h2 { font-size: 1.25rem; line-height: 1.625rem; }
+.agent-instruction__text { display: flex; flex-direction: column; gap: 1rem; color: var(--color-content-secondary); }
+.agent-instruction__text a { color: var(--color-content-accent); overflow-wrap: anywhere; }
+.agent-commands { display: flex; flex-direction: column; gap: 1.25rem; }
+.agent-commands__header p { color: var(--color-content-tertiary); font-size: .875rem; line-height: 1.25rem; }
+.command-list { padding-inline: 1.75rem; border-radius: 1rem; background: var(--color-surface-default); }
+.command-row {
+  display: grid;
+  grid-template-columns: 11.25rem minmax(0, 1fr) 2.5rem;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 5.5rem;
+  padding-block: 1.25rem;
+}
+.command-row + .command-row { border-top: 1px solid var(--color-border-subtle); }
+.command-row__label { color: var(--color-content-secondary); }
+.command-code { min-width: 0; font-family: "Roboto Mono", monospace; font-size: .875rem; line-height: 1.5rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.syntax-executable { color: #dcdcaa; }
+.syntax-command { color: var(--color-content-accent); }
+.syntax-string { color: #ce9178; }
+.syntax-option { color: #c586c0; }
+.syntax-value { color: #9cdcfe; }
+/* Secondary M для инструкции, Secondary S Icon only для команд. */
+.copy-button {
+  flex-shrink: 0;
+  min-height: 3rem;
+  padding: .75rem 1rem;
+  border: 0;
+  color: var(--color-content-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  cursor: pointer;
+}
+.copy-button--icon { width: 2.5rem; height: 2.5rem; min-height: 0; padding: 0; }
+.copy-icon { flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.copy-icon__check { display: none; }
+.copy-button[data-copied] .copy-icon__sheets { display: none; }
+.copy-button[data-copied] .copy-icon__check { display: block; }
+.copy-status {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 5;
+  max-width: min(28rem, calc(100% - 2.5rem));
+  border-radius: .75rem;
+  background: var(--color-surface-raised);
+  font-size: .875rem;
+  line-height: 1.25rem;
+}
+.copy-status:not(:empty) { padding: .75rem 1rem; border: 1px solid var(--color-border-default); }
+@media (hover: hover) {
+  .agent-instruction__text a:hover { color: var(--color-content-accent-hover); text-decoration: underline; text-decoration-color: var(--color-accent-fill); text-underline-offset: 3px; }
+}
+@media (max-width: 80rem) {
+  .command-row { grid-template-columns: minmax(0, 1fr) 2.5rem; gap: .75rem 1rem; }
+  .command-row__label { grid-column: 1; }
+  .command-code { grid-column: 1; grid-row: 2; }
+  .command-row .copy-button { grid-column: 2; grid-row: 1 / 3; }
+}
+@media (max-width: 48rem) {
+  .agent-instruction, .command-list { padding-inline: 1.25rem; }
+  .agent-instruction__header, .agent-commands__header { align-items: flex-start; flex-direction: column; gap: 1rem; }
+  .command-row { grid-template-columns: minmax(0, 1fr) 2.75rem; }
+  .command-row .copy-button { width: 2.75rem; height: 2.75rem; grid-row: 1; }
+  .command-code { grid-column: 1 / -1; }
+}

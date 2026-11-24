@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Работа с агентами в TRDS: стартовая инструкция, поиск компонентов, проверка свойств и токенов.">
+    <title>Работа с агентами — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/agents.css?v=20261124-agents">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <script src="js/copy.js?v=20261124-agents" defer></script>
+  </head>
+  <body class="docs-page agents-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html" aria-current="page">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/TYPOGRAPHY.md">Типографика</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/TOKENS-INDEX.md">Цвета и темы</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/screen-layout.md">Сетки и структура</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/data/foundations.json">Отступы и размеры</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/TOKEN-POLICY.md">Дизайн-токены</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/ICONS-INDEX.md">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-digit.md">Code Digit</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-field.md">Code Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown-item.md">Dropdown Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-control.md">Selection Control</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-item.md">Selection Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-cell.md">Table Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-header-cell.md">Table Header Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Table Row</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-area.md">Text Area</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-field.md">Text Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/toggle.md">Toggle</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/upload-zone.md">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main" id="main" tabindex="-1">
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">Работа с агентами</h1>
+            <p>Репозиторий помогает выбрать существующий компонент и проверить его свойства.</p>
+          </section>
+
+          <section class="agent-instruction" aria-labelledby="instruction-title">
+            <div class="agent-instruction__header">
+              <h2 id="instruction-title">Инструкция для агента</h2>
+              <button class="button button--secondary copy-button" type="button" data-copy="agent-prompt" aria-label="Скопировать инструкцию для агента" title="Скопировать инструкцию для агента"><svg class="copy-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><g class="copy-icon__sheets"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3V12H4"/></g><path class="copy-icon__check" d="M4 10L8 14L16 6"/></svg><span>Скопировать</span></button>
+            </div>
+            <div class="agent-instruction__text" id="agent-prompt">
+              <p>Работай с TRDS: <a href="https://github.com/ArtyomKraev/trds-agent-ready">https://github.com/ArtyomKraev/trds-agent-ready</a></p>
+              <p>Прочитай START-HERE.md и следуй его инструкции.<br> Используй компоненты TRDS, их свойства и семантические токены.</p>
+              <p>Задачу интерфейса я опишу следующим сообщением.</p>
+            </div>
+          </section>
+
+          <section class="agent-commands" aria-labelledby="commands-title">
+            <div class="agent-commands__header">
+              <h2 id="commands-title">Команды</h2>
+              <p>Выполняйте из папки репозитория</p>
+            </div>
+            <!-- Цветные фрагменты не меняют текст, который попадёт в буфер. -->
+            <div class="command-list">
+              <div class="command-row">
+                <div class="command-row__label" id="label-query">Найти компонент</div>
+                <code class="command-code" id="command-query" aria-labelledby="label-query"><span class="syntax-executable">python3</span> scripts/kit.py <span class="syntax-command">query</span> <span class="syntax-string">&#x27;input&#x27;</span></code>
+                <button class="button button--secondary copy-button copy-button--icon" type="button" data-copy="command-query" aria-label="Скопировать команду: найти компонент" title="Скопировать команду: найти компонент"><svg class="copy-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><g class="copy-icon__sheets"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3V12H4"/></g><path class="copy-icon__check" d="M4 10L8 14L16 6"/></svg></button>
+              </div>
+              <div class="command-row">
+                <div class="command-row__label" id="label-select">Проверить вариант</div>
+                <code class="command-code" id="command-select" aria-labelledby="label-select"><span class="syntax-executable">python3</span> scripts/kit.py <span class="syntax-command">select</span> <span class="syntax-value">Button</span> <span class="syntax-option">--props</span> <span class="syntax-string">&#x27;{&quot;Size&quot;:&quot;M&quot;,&quot;State&quot;:&quot;Focused&quot;,&quot;Label#118:0&quot;:&quot;Сохранить&quot;}&#x27;</span></code>
+                <button class="button button--secondary copy-button copy-button--icon" type="button" data-copy="command-select" aria-label="Скопировать команду: проверить вариант" title="Скопировать команду: проверить вариант"><svg class="copy-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><g class="copy-icon__sheets"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3V12H4"/></g><path class="copy-icon__check" d="M4 10L8 14L16 6"/></svg></button>
+              </div>
+              <div class="command-row">
+                <div class="command-row__label" id="label-token">Найти цвет</div>
+                <code class="command-code" id="command-token" aria-labelledby="label-token"><span class="syntax-executable">python3</span> scripts/kit.py <span class="syntax-command">token</span> <span class="syntax-string">&#x27;Colors/Surface/Page&#x27;</span> <span class="syntax-option">--mode</span> <span class="syntax-value">Dark</span></code>
+                <button class="button button--secondary copy-button copy-button--icon" type="button" data-copy="command-token" aria-label="Скопировать команду: найти цвет" title="Скопировать команду: найти цвет"><svg class="copy-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><g class="copy-icon__sheets"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3V12H4"/></g><path class="copy-icon__check" d="M4 10L8 14L16 6"/></svg></button>
+              </div>
+              <div class="command-row">
+                <div class="command-row__label" id="label-check">Проверить данные</div>
+                <code class="command-code" id="command-check" aria-labelledby="label-check"><span class="syntax-executable">python3</span> scripts/kit.py <span class="syntax-command">check</span></code>
+                <button class="button button--secondary copy-button copy-button--icon" type="button" data-copy="command-check" aria-label="Скопировать команду: проверить данные" title="Скопировать команду: проверить данные"><svg class="copy-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><g class="copy-icon__sheets"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 4V3H3V12H4"/></g><path class="copy-icon__check" d="M4 10L8 14L16 6"/></svg></button>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+    <div class="copy-status" role="status" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
