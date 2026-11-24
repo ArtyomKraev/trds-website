@@ -46,8 +46,10 @@
 }
 
 body {
+  position: relative;
   margin: 0;
   min-width: 20rem;
+  min-height: 100svh;
   background: var(--color-surface-page);
   color: var(--color-content-primary);
   font-family: var(--font-body);
@@ -77,6 +79,23 @@ a {
 .container {
   width: min(var(--content-width), calc(100% - 3rem));
   margin-inline: auto;
+}
+
+/* Точки лежат под контентом. Размеры и отступы самой страницы не меняются. */
+.dot-field {
+  position: absolute;
+  top: 6rem;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 6rem);
+  max-height: 64rem;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.site-header, .main {
+  position: relative;
+  z-index: 1;
 }
 
 .skip-link {
