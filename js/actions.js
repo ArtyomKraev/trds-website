@@ -15,7 +15,8 @@
   const trigger = preview.querySelector('.dropdown-trigger');
   const menu = preview.querySelector('.action-menu');
   const chips = [...preview.querySelectorAll('[data-chip]')];
-  const removable = preview.querySelector('[data-chip-wrapper]');
+  const chipDefaults = chips.map(chip => chip.getAttribute('aria-pressed'));
+  const dropdownMotion = menu ? createDropdownMotion(menu, trigger, items) : null;
   const button = preview.querySelector('.action-button');
   const link = preview.querySelector('.action-link');
   const linkURL = link?.getAttribute('href');
@@ -43,6 +44,10 @@
       target.dataset.previewState = disabled ? 'disabled' : state;
     }
     if (settings.state) radio('state', actual || settings.state);
+    if (dropdownMotion) {
+      const target = items.includes(hovered) ? hovered : items.includes(document.activeElement) ? document.activeElement : items.find(item => ['hover','focus'].includes(item.dataset.previewState));
+      dropdownMotion.highlight(target && !target.disabled && !menu.inert ? target : null);
+    }
   }
 
   function render() {
@@ -63,8 +68,7 @@
     if (menu) {
       const open = settings.menu === 'open';
       trigger.setAttribute('aria-expanded', String(open));
-      menu.inert = !open;
-      menu.setAttribute('aria-hidden', String(!open));
+      dropdownMotion.setOpen(open);
       items.forEach((item,index) => {
         const selected = settings.selection === 'value' && index === selectedItem;
         item.setAttribute('role', settings.selection === 'value' ? 'menuitemradio' : 'menuitem');
@@ -109,7 +113,7 @@
     settings[input.name] = input.value;
     pressed = hovered = null;
     if (kind === 'chip' && input.name === 'selection' && input.value === 'single') {
-      const selected = chips.find(chip => chip.getAttribute('aria-pressed') === 'true' && !chip.closest('[hidden]')) || chips[0];
+      const selected = chips.find(chip => chip.getAttribute('aria-pressed') === 'true');
       chips.forEach(chip => chip.setAttribute('aria-pressed', String(chip === selected)));
     }
     if (kind === 'dropdown' && input.name === 'variant') {
@@ -159,20 +163,12 @@
 
   chips.forEach(chip => chip.addEventListener('click', () => {
     const next = chip.getAttribute('aria-pressed') !== 'true';
-    if (settings.selection === 'single' || chip.dataset.chip === 'all') {
-      chips.forEach(item => item.setAttribute('aria-pressed', String(item === chip)));
+    if (settings.selection === 'single') {
+      chips.forEach(item => item.setAttribute('aria-pressed', String(item === chip && next)));
     } else {
       chip.setAttribute('aria-pressed', String(next));
-      chips[0].setAttribute('aria-pressed', String(!chips.slice(1).some(item => !item.closest('[hidden]') && item.getAttribute('aria-pressed') === 'true')));
     }
   }));
-  preview.querySelector('.chip-remove')?.addEventListener('click', () => {
-    removable.hidden = true;
-    chips[2].setAttribute('aria-pressed','false');
-    if (!chips.slice(1).some(item => !item.closest('[hidden]') && item.getAttribute('aria-pressed') === 'true')) chips[0].setAttribute('aria-pressed','true');
-    chips[1].focus({ preventScroll: true });
-    status.textContent = 'Фильтр PDF удалён';
-  });
 
   if (menu) {
     trigger.addEventListener('click', () => setMenu(settings.menu !== 'open', selectedItem));
@@ -185,7 +181,7 @@
       if (settings.selection === 'value') {
         selectedItem = demoItem = index;
         settings.variant = 'selected';
-        trigger.querySelector('span').textContent = item.querySelector('span').textContent;
+        dropdownMotion.setLabel(item.querySelector('span').textContent);
       }
       status.textContent = `Выбрано: ${item.querySelector('span').textContent}`;
       setMenu(false);
@@ -219,11 +215,93 @@
     queueMicrotask(() => {
       settings = { ...defaults }; selectedItem = demoItem = 1;
       hovered = pressed = null; search = ''; clearTimeout(typeTimer); resetButton(); status.textContent = '';
-      if (removable) removable.hidden = false;
-      chips.forEach((chip,index) => chip.setAttribute('aria-pressed', String(index !== 0)));
+      chips.forEach((chip,index) => chip.setAttribute('aria-pressed', chipDefaults[index]));
+      dropdownMotion?.stop();
       if (trigger) trigger.querySelector('span').textContent = items[1].querySelector('span').textContent;
       render();
     });
   });
   render();
+
+  function createDropdownMotion(panel, control, rows) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const motions = new Set();
+    let lastOpen, labelMotion, widthMotion;
+    const highlight = document.createElement('div');
+    highlight.className = 'dropdown-highlight';
+    highlight.setAttribute('aria-hidden', 'true');
+    panel.prepend(highlight);
+    const sample = node => {
+      const style = getComputedStyle(node);
+      return { transform: style.transform, opacity: style.opacity };
+    };
+    function animate(node, frames, options) {
+      const animation = node.animate(frames, options);
+      motions.add(animation);
+      animation.finished.then(() => { motions.delete(animation); animation.cancel(); }, () => motions.delete(animation));
+      return animation;
+    }
+    function stopPanel() {
+      motions.forEach(animation => animation.cancel());
+      motions.clear();
+    }
+    function stop() {
+      stopPanel(); labelMotion?.cancel(); widthMotion?.cancel();
+    }
+    reduced.addEventListener('change', stop);
+    window.addEventListener('pagehide', stop);
+    window.addEventListener('resize', stop);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+    return {
+      stop,
+      highlight(target) {
+        rows.forEach(row => row.toggleAttribute('data-highlighted', row === target));
+        highlight.style.opacity = target ? '1' : '0';
+        if (target) {
+          highlight.style.transform = `translateY(${target.offsetTop}px)`;
+          highlight.toggleAttribute('data-selected', target.dataset.kind === 'selected');
+        }
+      },
+      setOpen(open) {
+        if (lastOpen === open) return;
+        const initial = lastOpen === undefined;
+        const start = sample(panel);
+        const rowStarts = rows.map(sample);
+        stopPanel();
+        lastOpen = open;
+        panel.inert = !open;
+        panel.setAttribute('aria-hidden', String(!open));
+        if (initial || reduced.matches) return;
+        if (!open) {
+          animate(panel, [start, {transform:'translateY(-8px) scale(.92,.86)', opacity:0}], {duration:180, easing:'cubic-bezier(.4,0,1,1)'});
+          // Preserve intermediate row positions when a reveal is interrupted.
+          rows.forEach((row,index) => animate(row, [rowStarts[index], {transform:'none',opacity:1}], {duration:180,easing:'ease-out'}));
+          return;
+        }
+        const fresh = Number(start.opacity) < .02;
+        const matrix = new DOMMatrixReadOnly(start.transform);
+        const from = fresh ? {x:.86,y:.72,top:-10} : {x:matrix.a,y:matrix.d,top:matrix.f};
+        // Same damped spring as the category picker on the Icons page.
+        const frames = Array.from({length:41}, (_,index) => {
+          const time = index / 40 * .6;
+          const progress = index === 40 ? 1 : 1 - Math.exp(-10*time) * (Math.cos(21.34*time) + 10/21.34*Math.sin(21.34*time));
+          return {transform:`translateY(${from.top*(1-progress)}px) scale(${from.x+(1-from.x)*progress},${from.y+(1-from.y)*progress})`,opacity:Number(start.opacity)+(1-Number(start.opacity))*Math.min(1,time/.16)};
+        });
+        animate(panel, frames, {duration:600,easing:'linear'});
+        rows.forEach((row,index) => animate(row, [fresh ? {opacity:0,transform:'translateY(-8px)'} : rowStarts[index], {opacity:1,transform:'none'}], {
+          duration:320, delay:fresh ? index*28+25 : 0, easing:'cubic-bezier(.22,1,.36,1)', fill:'backwards'
+        }));
+      },
+      setLabel(text) {
+        const label = control.querySelector('span');
+        if (label.textContent === text) return;
+        const width = control.getBoundingClientRect().width;
+        labelMotion?.cancel(); widthMotion?.cancel();
+        label.textContent = text;
+        if (reduced.matches) return;
+        widthMotion = control.animate([{width:`${width}px`},{width:`${control.getBoundingClientRect().width}px`}], {duration:280,easing:'cubic-bezier(.22,1,.36,1)'});
+        labelMotion = label.animate([{opacity:0,transform:'translateY(7px)'},{opacity:1,transform:'translateY(0)'}], {duration:280,easing:'cubic-bezier(.22,1,.36,1)'});
+      }
+    };
+  }
 })();
