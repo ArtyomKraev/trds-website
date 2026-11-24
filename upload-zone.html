@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Выбор файлов и перетаскивание">
+    <title>Upload Zone — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-entrance-direction">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/components.css?v=20261124-inputs">
+    <script src="js/components.js?v=20261124-inputs" defer></script>
+  </head>
+  <body class="docs-page components-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html">Типографика</a>
+              <a href="colors.html">Цвета и темы</a>
+              <a href="grids.html">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="icons.html">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+                <a href="selection-control.html">Selection Control</a>
+                <a href="selection-item.html">Selection Item</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Таблица</a>
+                <a href="text-field.html">Поля ввода</a>
+                <a href="toggle.html">Toggle</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+                <a href="upload-zone.html" aria-current="page">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main components-main" id="main" tabindex="-1">
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">Upload Zone</h1>
+            <p>Выбор файлов и перетаскивание</p>
+          </section>
+          <form class="playground" data-component="upload" data-state="enabled" data-size="m" novalidate>
+            <div class="playground__header"><span>Пример</span><button class="play-reset" type="reset">Сбросить</button>
+            </div>
+            <div class="playground__body">
+              <div class="playground__preview">
+                <div class="upload-example"><label class="ds-upload" for="demo-files"><input class="visually-hidden" type="file" id="demo-files" multiple aria-label="Выберите файлы"><span class="ds-upload__icon"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.42 8.22C17.809 6.816 16.755 5.651 15.418 4.904C14.082 4.156 12.537 3.868 11.021 4.082C9.505 4.297 8.101 5.002 7.024 6.091C5.948 7.18 5.258 8.592 5.06 10.11C4.107 10.338 3.27 10.909 2.71 11.713C2.149 12.518 1.904 13.5 2.02 14.473C2.136 15.447 2.605 16.344 3.339 16.994C4.073 17.644 5.02 18.002 6 18C6.265 18 6.52 17.895 6.707 17.707C6.895 17.52 7 17.265 7 17C7 16.735 6.895 16.48 6.707 16.293C6.52 16.105 6.265 16 6 16C5.47 16 4.961 15.789 4.586 15.414C4.211 15.039 4 14.53 4 14C4 13.47 4.211 12.961 4.586 12.586C4.961 12.211 5.47 12 6 12C6.265 12 6.52 11.895 6.707 11.707C6.895 11.52 7 11.265 7 11C7.003 9.817 7.424 8.674 8.19 7.773C8.956 6.871 10.017 6.271 11.184 6.078C12.351 5.885 13.548 6.112 14.564 6.718C15.579 7.324 16.347 8.271 16.73 9.39C16.787 9.562 16.89 9.715 17.027 9.833C17.165 9.951 17.331 10.029 17.51 10.06C18.176 10.186 18.78 10.534 19.223 11.047C19.666 11.559 19.923 12.207 19.95 12.885C19.978 13.562 19.776 14.229 19.376 14.776C18.977 15.324 18.404 15.72 17.75 15.9C17.493 15.966 17.272 16.132 17.137 16.361C17.002 16.59 16.964 16.863 17.03 17.12C17.096 17.377 17.262 17.598 17.491 17.733C17.72 17.868 17.993 17.906 18.25 17.84C19.302 17.562 20.235 16.948 20.907 16.091C21.579 15.235 21.953 14.183 21.972 13.094C21.991 12.006 21.655 10.941 21.014 10.061C20.372 9.182 19.462 8.535 18.42 8.22V8.22ZM12.71 10.29C12.615 10.199 12.503 10.128 12.38 10.08C12.137 9.98 11.864 9.98 11.62 10.08C11.497 10.128 11.385 10.199 11.29 10.29L8.29 13.29C8.102 13.478 7.996 13.734 7.996 14C7.996 14.266 8.102 14.522 8.29 14.71C8.478 14.898 8.734 15.004 9 15.004C9.266 15.004 9.522 14.898 9.71 14.71L11 13.41V19C11 19.265 11.105 19.52 11.293 19.707C11.48 19.895 11.735 20 12 20C12.265 20 12.52 19.895 12.707 19.707C12.895 19.52 13 19.265 13 19V13.41L14.29 14.71C14.383 14.804 14.494 14.878 14.615 14.929C14.737 14.98 14.868 15.006 15 15.006C15.132 15.006 15.263 14.98 15.385 14.929C15.506 14.878 15.617 14.804 15.71 14.71C15.804 14.617 15.878 14.507 15.929 14.385C15.98 14.263 16.006 14.132 16.006 14C16.006 13.868 15.98 13.737 15.929 13.615C15.878 13.494 15.804 13.383 15.71 13.29L12.71 10.29Z" fill="currentColor" /></svg></span><span class="ds-upload__title">Выберите файлы</span><span class="ds-upload__helper">или перетащите файлы сюда</span><span class="ds-upload__drop" hidden>Отпустите файлы для загрузки</span></label>
+                  <ul class="upload-files" aria-label="Выбранные файлы" hidden>
+                  </ul>
+                  <p class="visually-hidden" role="status" id="upload-status"></p>
+                </div>
+              </div>
+              <div class="playground__settings" aria-label="Настройки примера">
+                <fieldset class="play-setting" data-setting="size">
+                  <legend>Размер</legend>
+                  <div class="play-options"><label class="play-option"><input type="radio" name="size" value="s"><span>S</span></label><label class="play-option"><input type="radio" name="size" value="m" checked><span>M</span></label><label class="play-option"><input type="radio" name="size" value="l"><span>L</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="play-setting" data-setting="state">
+                  <legend>Состояние</legend>
+                  <div class="play-options"><label class="play-option"><input type="radio" name="state" value="default" checked><span>Default</span></label><label class="play-option"><input type="radio" name="state" value="dragging"><span>Dragging</span></label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <template id="remove-file-icon"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.41 11.9999L17.71 7.70994C17.8983 7.52164 18.0041 7.26624 18.0041 6.99994C18.0041 6.73364 17.8983 6.47825 17.71 6.28994C17.5217 6.10164 17.2663 5.99585 17 5.99585C16.7337 5.99585 16.4783 6.10164 16.29 6.28994L12 10.5899L7.71 6.28994C7.5217 6.10164 7.2663 5.99585 7 5.99585C6.7337 5.99585 6.4783 6.10164 6.29 6.28994C6.1017 6.47825 5.99591 6.73364 5.99591 6.99994C5.99591 7.26624 6.1017 7.52164 6.29 7.70994L10.59 11.9999L6.29 16.2899C6.19627 16.3829 6.12188 16.4935 6.07111 16.6154C6.02034 16.7372 5.9942 16.8679 5.9942 16.9999C5.9942 17.132 6.02034 17.2627 6.07111 17.3845C6.12188 17.5064 6.19627 17.617 6.29 17.7099C6.38296 17.8037 6.49356 17.8781 6.61542 17.9288C6.73728 17.9796 6.86799 18.0057 7 18.0057C7.13201 18.0057 7.26272 17.9796 7.38458 17.9288C7.50644 17.8781 7.61704 17.8037 7.71 17.7099L12 13.4099L16.29 17.7099C16.383 17.8037 16.4936 17.8781 16.6154 17.9288C16.7373 17.9796 16.868 18.0057 17 18.0057C17.132 18.0057 17.2627 17.9796 17.3846 17.9288C17.5064 17.8781 17.617 17.8037 17.71 17.7099C17.8037 17.617 17.8781 17.5064 17.9289 17.3845C17.9797 17.2627 18.0058 17.132 18.0058 16.9999C18.0058 16.8679 17.9797 16.7372 17.9289 16.6154C17.8781 16.4935 17.8037 16.3829 17.71 16.2899L13.41 11.9999Z" fill="currentColor"/></svg>
+            </template>
+          </form>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

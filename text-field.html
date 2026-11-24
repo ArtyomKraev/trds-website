@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Текст, комментарий и код подтверждения">
+    <title>Поля ввода — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-entrance-direction">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/components.css?v=20261124-inputs">
+    <script src="js/components.js?v=20261124-inputs" defer></script>
+  </head>
+  <body class="docs-page components-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html">Типографика</a>
+              <a href="colors.html">Цвета и темы</a>
+              <a href="grids.html">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="icons.html">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+                <a href="selection-control.html">Selection Control</a>
+                <a href="selection-item.html">Selection Item</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Таблица</a>
+                <a href="text-field.html" aria-current="page">Поля ввода</a>
+                <a href="toggle.html">Toggle</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+                <a href="upload-zone.html">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main components-main" id="main" tabindex="-1">
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">Поля ввода</h1>
+            <p>Текст, комментарий и код подтверждения</p>
+          </section>
+          <form class="playground" data-component="fields" data-state="focused" data-size="m" novalidate>
+            <div class="playground__header">
+              <div class="play-tabs" role="tablist" aria-label="Тип поля"><button type="button" role="tab" id="tab-text" aria-controls="panel-text" aria-selected="true" tabindex="0">Text Field</button><button type="button" role="tab" id="tab-area" aria-controls="panel-area" aria-selected="false" tabindex="-1">Text Area</button><button type="button" role="tab" id="tab-code" aria-controls="panel-code" aria-selected="false" tabindex="-1">Code Field</button>
+              </div><button class="play-reset" type="reset">Сбросить</button>
+            </div>
+            <div class="playground__body">
+              <div class="playground__preview">
+                <div class="field-panel" id="panel-text" role="tabpanel" aria-labelledby="tab-text" data-field="text">
+                  <div class="ds-field">
+                    <div class="ds-field__surface"><input id="demo-email" type="email" value="name@company.ru" placeholder=" " autocomplete="off" spellcheck="false"><label for="demo-email">Email</label>
+                    </div>
+                    <p class="field-error" id="email-error" hidden>Укажите корректный email</p>
+                  </div>
+                </div>
+                <div class="field-panel" id="panel-area" role="tabpanel" aria-labelledby="tab-area" data-field="area" hidden>
+                  <div class="ds-field ds-field--area">
+                    <div class="ds-field__surface"><textarea id="demo-comment" maxlength="200" placeholder=" " aria-describedby="comment-counter">Добавьте доступ для команды.</textarea><label for="demo-comment">Комментарий</label>
+                    </div>
+                    <p class="field-error" id="comment-error" hidden>Проверьте комментарий</p><output class="field-counter" id="comment-counter" for="demo-comment">27/200</output>
+                  </div>
+                </div>
+                <div class="field-panel" id="panel-code" role="tabpanel" aria-labelledby="tab-code" data-field="code" hidden>
+                  <fieldset class="ds-code">
+                    <legend class="visually-hidden">Код подтверждения</legend>
+                    <div class="ds-code__digits"><input class="ds-code__digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" aria-label="Цифра 1 из 6" autocomplete="one-time-code" value="1"><input class="ds-code__digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" aria-label="Цифра 2 из 6" autocomplete="off" value="2"><input class="ds-code__digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" aria-label="Цифра 3 из 6" autocomplete="off" value="3"><input class="ds-code__digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" aria-label="Цифра 4 из 6" autocomplete="off" value="4"><input class="ds-code__digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" aria-label="Цифра 5 из 6" autocomplete="off" value="5"><input class="ds-code__digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" aria-label="Цифра 6 из 6" autocomplete="off" value="6">
+                    </div>
+                    <p class="field-error" id="code-error" hidden>Неверный код. Попробуйте ещё раз</p>
+                  </fieldset>
+                </div>
+              </div>
+              <div class="playground__settings" aria-label="Настройки примера">
+                <fieldset class="play-setting" data-setting="size">
+                  <legend>Размер</legend>
+                  <div class="play-options"><label class="play-option"><input type="radio" name="size" value="m" checked><span>M</span></label><label class="play-option"><input type="radio" name="size" value="l"><span>L</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="play-setting" data-setting="state">
+                  <legend>Состояние</legend>
+                  <div class="play-options"><label class="play-option"><input type="radio" name="state" value="default"><span>Default</span></label><label class="play-option"><input type="radio" name="state" value="focused" checked><span>Focused</span></label><label class="play-option"><input type="radio" name="state" value="error"><span>Error</span></label><label class="play-option"><input type="radio" name="state" value="disabled"><span>Disabled</span></label>
+                  </div>
+                </fieldset>
+                <fieldset class="play-setting" data-setting="value">
+                  <legend>Значение</legend>
+                  <div class="play-options"><label class="play-option"><input type="radio" name="value" value="empty"><span>Пусто</span></label><label class="play-option"><input type="radio" name="value" value="filled" checked><span>Заполнено</span></label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
