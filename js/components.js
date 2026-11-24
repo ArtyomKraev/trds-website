@@ -21,9 +21,18 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   const toggle = form.querySelector('#demo-toggle');
   const bell = form.querySelector('.toggle-bell');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const stopUploadReflow = () => {
+    form.querySelectorAll('.upload-example, .ds-upload, .upload-files, .upload-files li').forEach((row) => row.getAnimations().forEach((animation) => animation.cancel()));
+    const list = form.querySelector('.upload-files');
+    if (list) list.hidden = !files.length;
+  };
   let bellAnimation;
   let selectionFall = [];
-  const stopSelectionFall = () => { selectionFall.forEach((animation) => animation.cancel()); selectionFall = []; };
+  const stopSelectionFall = () => {
+    selectionFall.forEach((animation) => animation.cancel());
+    selectionFall = [];
+    delete form.dataset.falling;
+  };
   const dropSelection = () => {
     stopSelectionFall();
     const items = choices.filter((input) => input.name === 'example-choice');
@@ -32,6 +41,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
     const stage = preview.getBoundingClientRect();
     const bounds = rows.map((row) => row.getBoundingClientRect());
     let top = stage.bottom - 32 - bounds.reduce((sum, rect) => sum + rect.height + 2, 0);
+    form.dataset.falling = '';
     selectionFall = rows.map((row, index) => {
       const y = Math.max(0, top - bounds[index].top);
       top += bounds[index].height + 2;
@@ -46,6 +56,10 @@ document.querySelectorAll('[data-component]').forEach((form) => {
         { transform: 'none', offset: 1 }
       ], { duration: 1800, delay: index * 45 });
     });
+    const falling = selectionFall;
+    Promise.all(falling.map((animation) => animation.finished)).then(() => {
+      if (selectionFall === falling) stopSelectionFall();
+    }).catch(() => {}); // Новое взаимодействие отменяет падение.
   };
   // Нативные inputs остаются доступны; отдельный декоративный слой двигает только цифры.
   const codeClips = digits.map((input, index) => {
@@ -70,6 +84,18 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       const clip = codeClips[index];
       if (clip.dataset.value === input.value) return;
       const previous = clip.dataset.value;
+      delete input.dataset.leaving;
+      const entering = clip.querySelector('.ds-code__glyph:not([data-exiting])');
+      const arrival = entering?.getAnimations().find((animation) => animation.playState === 'running');
+      // Если ввод ещё движется, разворачиваем его с текущего кадра без скачка в центр.
+      if (!input.value && animate && previous && !reducedMotion.matches && arrival) {
+        clip.dataset.value = '';
+        input.dataset.leaving = '';
+        entering.dataset.exiting = '';
+        arrival.reverse();
+        arrival.onfinish = () => { entering.remove(); delete input.dataset.leaving; };
+        return;
+      }
       clip.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
       clip.replaceChildren();
       clip.dataset.value = input.value;
@@ -78,12 +104,13 @@ document.querySelectorAll('[data-component]').forEach((form) => {
           const outgoing = document.createElement('span');
           outgoing.className = 'ds-code__glyph';
           outgoing.dataset.exiting = '';
+          input.dataset.leaving = '';
           outgoing.textContent = previous;
           clip.append(outgoing);
           const exit = outgoing.animate(codeMotion, {
             duration: codeMotionDuration, direction: 'reverse', fill: 'forwards'
           });
-          exit.onfinish = () => outgoing.remove();
+          exit.onfinish = () => { outgoing.remove(); delete input.dataset.leaving; };
         }
         return;
       }
@@ -233,14 +260,16 @@ document.querySelectorAll('[data-component]').forEach((form) => {
     if (!reducedMotion.matches) return;
     bellAnimation?.cancel();
     stopSelectionFall();
+    stopUploadReflow();
     codeClips.forEach((clip) => {
       clip.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
       clip.querySelectorAll('[data-exiting]').forEach((glyph) => glyph.remove());
     });
+    digits.forEach((input) => { delete input.dataset.leaving; });
   });
   preview.addEventListener('pointerdown', stopSelectionFall);
   preview.addEventListener('keydown', stopSelectionFall);
-  window.addEventListener('resize', stopSelectionFall);
+  window.addEventListener('resize', () => { stopSelectionFall(); stopUploadReflow(); });
   preview.addEventListener('focusin', applyState);
   preview.addEventListener('focusout', (event) => {
     if (preview.contains(event.relatedTarget)) return;
@@ -305,6 +334,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   }
   const renderFiles = () => {
     const list = form.querySelector('.upload-files');
+    stopUploadReflow();
     list.replaceChildren();
     list.hidden = !files.length;
     files.forEach((file, index) => {
@@ -329,8 +359,28 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       remove.setAttribute('aria-label', `Убрать ${file.name}`);
       remove.append(form.querySelector('#remove-file-icon').content.cloneNode(true));
       remove.addEventListener('click', () => {
+        const reserved = parseFloat(getComputedStyle(list).paddingBottom) || 0;
+        const rowHeight = row.offsetHeight;
+        const space = rowHeight + parseFloat(getComputedStyle(list).rowGap);
+        const positions = [...list.children].filter((item) => item !== row).map((item) => item.getBoundingClientRect().top);
+        const dissolving = window.TRDSUploadDust?.dissolve(row, preview);
         files.splice(index, 1);
         renderFiles();
+        if (dissolving) {
+          list.hidden = false;
+          const timing = { duration: 360, delay: 950, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'backwards' };
+          const collapse = list.animate([{ paddingBottom: `${reserved + (files.length ? space : rowHeight)}px` }, { paddingBottom: '0px' }], timing);
+          const example = list.closest('.upload-example');
+          const gap = files.length ? null : example.animate([{ gap: getComputedStyle(example).gap }, { gap: '0px' }], { ...timing, fill: 'both' });
+          collapse.onfinish = () => { if (!files.length) list.hidden = true; gap?.cancel(); };
+        }
+        if (dissolving) [...list.children].forEach((item, i) => {
+          const offset = positions[i] - item.getBoundingClientRect().top;
+          if (Math.abs(offset) < 1) return;
+          item.animate([{ transform: `translateY(${offset}px)` }, { transform: 'none' }], {
+            duration: 360, delay: 950, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'backwards'
+          });
+        });
         const remaining = list.querySelectorAll('button');
         (remaining[Math.min(index, remaining.length - 1)] || fileInput).focus({ preventScroll: true });
       });
@@ -341,6 +391,9 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   };
   if (zone) {
     const acceptFiles = (picked) => {
+      const beforeZone = zone.getBoundingClientRect().top;
+      const beforeRows = [...form.querySelectorAll('.upload-files li')].map((row) => row.getBoundingClientRect().top);
+      window.TRDSUploadDust?.clear(preview);
       for (const file of picked) {
         if (!files.some((other) => other.name === file.name && other.size === file.size && other.lastModified === file.lastModified)) files.push(file);
       }
@@ -348,6 +401,16 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       setSetting('state', 'default');
       applyState();
       renderFiles();
+      if (!reducedMotion.matches) {
+        const shift = beforeZone - zone.getBoundingClientRect().top;
+        if (Math.abs(shift) > 1) zone.animate([{ transform: `translateY(${shift}px)` }, { transform: 'none' }], { duration: 360, easing: 'cubic-bezier(.22,.8,.25,1)' });
+        form.querySelectorAll('.upload-files li').forEach((row, index) => {
+          if (index < beforeRows.length) {
+            const offset = beforeRows[index] - row.getBoundingClientRect().top;
+            row.animate([{ transform: `translateY(${offset}px)` }, { transform: 'none' }], { duration: 360, easing: 'cubic-bezier(.22,.8,.25,1)' });
+          } else row.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 280, delay: 180, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'backwards' });
+        });
+      }
       fileInput.value = '';
     };
     fileInput.addEventListener('change', () => acceptFiles(fileInput.files));
@@ -379,6 +442,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   form.addEventListener('reset', (event) => {
     event.preventDefault();
     stopSelectionFall();
+    window.TRDSUploadDust?.clear(preview);
     settings.forEach((input) => { input.checked = input.defaultChecked; });
     readSettings();
     preview.querySelectorAll('input, textarea').forEach((input) => {

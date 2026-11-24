@@ -63,6 +63,7 @@
 .ds-code__digits { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
 .ds-code__digits[data-animated] .ds-code__digit { grid-row: 1; color: transparent; -webkit-text-fill-color: transparent; }
 .ds-code__digits[data-animated] .ds-code__digit:not(:placeholder-shown) { caret-color: transparent; }
+.ds-code__digit[data-leaving] { caret-color: transparent; }
 .ds-code__digits[data-animated] .ds-code__digit::selection { background: transparent; }
 .ds-code__clip { position: relative; grid-row: 1; height: 48px; min-width: 0; overflow: hidden; border-radius: 8px; pointer-events: none; }
 .ds-code__glyph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
@@ -94,8 +95,8 @@
 .ds-choice__text > span:first-child { white-space: nowrap; }
 [data-description="single"] .ds-choice__text > span:first-child { position: relative; }
 [data-description="single"] .ds-choice__text > span:first-child::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; pointer-events: none; }
-[data-description="single"] .ds-choice__input[type="checkbox"]:checked ~ .ds-choice__text > span:first-child { color: var(--color-content-secondary); }
-[data-description="single"] .ds-choice__input[type="checkbox"]:checked ~ .ds-choice__text > span:first-child::after { transform: scaleX(1); }
+[data-description="single"][data-falling] .ds-choice__input[type="checkbox"]:checked ~ .ds-choice__text > span:first-child { color: var(--color-content-secondary); }
+[data-description="single"][data-falling] .ds-choice__input[type="checkbox"]:checked ~ .ds-choice__text > span:first-child::after { transform: scaleX(1); }
 .ds-choice__text { min-width: 0; }
 .ds-choice__helper { overflow-wrap: anywhere; }
 [data-state="focused"] .ds-choice__input:not(:disabled) + .ds-choice__mark { outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
@@ -136,6 +137,7 @@
 .upload-file__details { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
 .upload-file__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .upload-file__size { color: var(--color-content-tertiary); font-size: 12px; line-height: 16px; }
+.upload-dust { position: absolute; z-index: 2; pointer-events: none; }
 .upload-files button { display: flex; align-items: center; justify-content: center; position: relative; width: 32px; height: 32px; padding: 4px; flex-shrink: 0; border: 0; background: none; color: var(--color-status-error-content); border-radius: 4px; }
 .upload-files button::before { content: ""; position: absolute; inset: -6px; }
 @media (hover: hover) {
@@ -143,10 +145,10 @@
   .play-option:hover input:not(:checked) + span { background: var(--color-surface-hover); }
   .ds-choice:hover .ds-choice__input:not(:disabled):not(:checked) + .ds-choice__mark { background: var(--color-surface-raised); }
   .ds-upload:hover { border-color: var(--color-content-accent); }
-  .upload-files button:hover { background: var(--color-status-error-surface, #49050c); }
+  .upload-files button:hover { background: var(--color-surface-hover); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  [data-description="single"] .ds-choice__text > span:first-child::after { transition: transform 180ms ease-out; }
+  [data-description="single"][data-falling] .ds-choice__text > span:first-child::after { transition: transform 180ms ease-out; }
   .ds-toggle__track { transition: background-color 180ms ease; }
   .ds-toggle__track::after { transition: transform 240ms cubic-bezier(.2,.7,.2,1); }
   .ds-field__surface label { transition: top 140ms ease, font-size 140ms ease; }
