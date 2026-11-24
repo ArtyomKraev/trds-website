@@ -6,22 +6,29 @@
     .docs-intro > *, .docs-main > :not(.docs-intro, noscript),
     .orbit-message > *, .orbit-copy > .button, .orbit-art,
     .site-footer, .docs-footer) {
-    animation: page-enter 720ms cubic-bezier(.22, .1, .25, 1) var(--enter-delay, 100ms) backwards;
+    animation:
+      page-enter 720ms cubic-bezier(.22, .7, .25, 1) var(--enter-delay, 180ms) backwards,
+      page-appear 160ms ease-out var(--enter-delay, 180ms) backwards;
   }
-  :where(.site-header, .docs-header) { --enter-delay: 0ms; }
-  .docs-sidebar { --enter-delay: 30ms; }
-  :where(.hero__intro, .docs-intro, .orbit-message) > h1 { --enter-delay: 40ms; }
-  :where(.hero__intro, .docs-intro, .orbit-message) > p { --enter-delay: 80ms; }
-  :where(.hero__actions, .orbit-copy > .button, .orbit-art) { --enter-delay: 110ms; }
-  .cards > .card:nth-child(1) { --enter-delay: 110ms; }
-  .cards > .card:nth-child(2) { --enter-delay: 140ms; }
-  .cards > .card:nth-child(3) { --enter-delay: 170ms; }
-  .docs-main > :nth-child(3) { --enter-delay: 130ms; }
-  .docs-main > :nth-child(n + 4) { --enter-delay: 160ms; }
-  :where(.site-footer, .docs-footer) { --enter-delay: 170ms; }
+  :where(.site-header, .docs-header) { --enter-delay: 0ms; --enter-from: translate3d(0, -24px, 0); }
+  .docs-sidebar { --enter-delay: 40ms; --enter-from: translate3d(-32px, 0, 0); }
+  :where(.hero__intro, .docs-intro, .orbit-message) > h1 { --enter-delay: 100ms; }
+  :where(.hero__intro, .docs-intro, .orbit-message) > p { --enter-delay: 140ms; }
+  :where(.hero__actions, .orbit-copy > .button, .orbit-art) { --enter-delay: 180ms; }
+  .cards > .card:nth-child(1) { --enter-delay: 180ms; }
+  .cards > .card:nth-child(2) { --enter-delay: 240ms; }
+  .cards > .card:nth-child(3) { --enter-delay: 300ms; }
+  .docs-main > :nth-child(3) { --enter-delay: 240ms; }
+  .docs-main > :nth-child(n + 4) { --enter-delay: 300ms; }
+  :where(.site-footer, .docs-footer) { --enter-delay: 300ms; }
   @keyframes page-enter {
-    from { opacity: 0; transform: translate3d(0, 8px, 0); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); }
+    from { transform: var(--enter-from, translate3d(0, 24px, 0)); }
+    to { transform: translate3d(0, 0, 0); }
+  }
+  /* Короткое проявление заканчивается раньше движения — без долгой полупрозрачности. */
+  @keyframes page-appear {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   /* Фокус сразу показывает элемент, не заставляя ждать окончания появления. */
   :where(.site-header, .docs-header, .docs-sidebar, .hero__actions, .cards > .card,
