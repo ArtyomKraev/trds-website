@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Цвета фона, текста и состояний для светлой и тёмной темы.">
+    <title>Цвета и темы — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/foundations.css?v=20261124-theme-reveal">
+    <script src="js/tabs.js?v=20261124-theme-reveal" defer></script>
+  </head>
+  <body class="docs-page foundations-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html">Типографика</a>
+              <a href="colors.html" aria-current="page">Цвета и темы</a>
+              <a href="grids.html">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/ICONS-INDEX.md">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-digit.md">Code Digit</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-field.md">Code Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown-item.md">Dropdown Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-control.md">Selection Control</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-item.md">Selection Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-cell.md">Table Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-header-cell.md">Table Header Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Table Row</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-area.md">Text Area</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-field.md">Text Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/toggle.md">Toggle</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/upload-zone.md">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main foundations-main colors-main" id="main" tabindex="-1">
+          <!-- Макет из Paper; мобильная компоновка — в foundations.css. -->
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">
+              Цвета и темы
+            </h1>
+            <p>
+              Цвета фона, текста и состояний для светлой и тёмной темы.
+            </p>
+          </section>
+          <div class="foundation-tab-widget palette-widget" data-tabs data-palette>
+            <nav class="foundation-tabs" data-tab-list aria-label="Цветовая тема">
+              <a id="palette-tab-dark" href="#palette-dark" data-tab>Тёмная тема</a><a id="palette-tab-light" href="#palette-light" data-tab>Светлая тема</a>
+            </nav>
+            <section class="foundation-tab-panel palette-panel" id="palette-dark" data-tab-panel data-palette-theme="dark">
+              <h2 class="fallback-tab-title">
+                Тёмная тема
+              </h2>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Поверхности
+                  </h2>
+                </div>
+                <div class="palette-grid">
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#141617;--sample-fg:#FFFFFF">
+                    <span>Страница</span><code>#141617</code>
+                  </div>
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#1D1E1F;--sample-fg:#FFFFFF">
+                    <span>Карточка</span><code>#1D1E1F</code>
+                  </div>
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#292A2B;--sample-fg:#FFFFFF">
+                    <span>Вложенная</span><code>#292A2B</code>
+                  </div>
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#EDEEEF;--sample-fg:#1D1E1F">
+                    <span>Инверсная</span><code>#EDEEEF</code>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Текст
+                  </h2>
+                </div>
+                <div class="palette-grid">
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#FFFFFF">Аа</span>
+                    <div>
+                      <span>Основной</span><code>#FFFFFF</code>
+                    </div>
+                  </div>
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#C8C9CA">Аа</span>
+                    <div>
+                      <span>Второстепенный</span><code>#C8C9CA</code>
+                    </div>
+                  </div>
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#969798">Аа</span>
+                    <div>
+                      <span>Подпись</span><code>#969798</code>
+                    </div>
+                  </div>
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#606162">Аа</span>
+                    <div>
+                      <span>Недоступный</span><code>#606162</code>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Границы и фокус
+                  </h2>
+                </div>
+                <div class="palette-grid">
+                  <div class="border-swatch">
+                    <span>Тонкая</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#292A2B;--sample-line-width:1px"></span><code>#292A2B</code>
+                  </div>
+                  <div class="border-swatch">
+                    <span>Основная</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#393A3B;--sample-line-width:1px"></span><code>#393A3B</code>
+                  </div>
+                  <div class="border-swatch">
+                    <span>Контрастная</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#969798;--sample-line-width:1px"></span><code>#969798</code>
+                  </div>
+                  <div class="border-swatch">
+                    <span>Фокус</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#97C2FF;--sample-line-width:2px"></span><code>#97C2FF</code>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Акцент
+                  </h2>
+                </div>
+                <div class="accent-grid">
+                  <div class="color-swatch" style="--sample-bg:#0A69DA;--sample-fg:#FFFFFF">
+                    <span>По умолчанию</span><code>#0A69DA</code>
+                  </div>
+                  <div class="color-swatch" style="--sample-bg:#0054B5;--sample-fg:#FFFFFF">
+                    <span>Наведение</span><code>#0054B5</code>
+                  </div>
+                  <div class="color-swatch" style="--sample-bg:#00397F;--sample-fg:#FFFFFF">
+                    <span>Нажатие</span><code>#00397F</code>
+                  </div>
+                </div>
+                <div class="accent-soft" style="--sample-bg:#001E49;--sample-fg:#BBD7FF">
+                  <span>Мягкое выделение</span>
+                  <div>
+                    <span>Фон <code>#001E49</code></span><span>Текст <code>#BBD7FF</code></span>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Статусы
+                  </h2>
+                  <span>Фон / текст</span>
+                </div>
+                <div class="palette-grid status-grid">
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#01331A;--sample-fg:#9AE2B3">
+                    <span>Успех</span>
+                    <div class="status-pair">
+                      <code>#01331A</code> <span>/ <code>#9AE2B3</code></span>
+                    </div>
+                  </div>
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#3C2A00;--sample-fg:#FFDFA5">
+                    <span>Внимание</span>
+                    <div class="status-pair">
+                      <code>#3C2A00</code> <span>/ <code>#FFDFA5</code></span>
+                    </div>
+                  </div>
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#49050C;--sample-fg:#FFAEA9">
+                    <span>Ошибка</span>
+                    <div class="status-pair">
+                      <code>#49050C</code> <span>/ <code>#FFAEA9</code></span>
+                    </div>
+                  </div>
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#001E49;--sample-fg:#97C2FF">
+                    <span>Информация</span>
+                    <div class="status-pair">
+                      <code>#001E49</code> <span>/ <code>#97C2FF</code></span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Декоративные цвета
+                  </h2>
+                  <span>Фон / текст</span>
+                </div>
+                <div class="decorative-grid">
+                  <div class="decorative-swatch" style="--sample-bg:#49050C;--sample-fg:#FFAEA9">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Красный</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#49050C</code><code>#FFAEA9</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#491600;--sample-fg:#FFBBA1">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Оранжевый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#491600</code><code>#FFBBA1</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#3C2A00;--sample-fg:#FFDFA5">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Жёлтый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#3C2A00</code><code>#FFDFA5</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#01331A;--sample-fg:#9AE2B3">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Зелёный</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#01331A</code><code>#9AE2B3</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#001E49;--sample-fg:#97C2FF">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Синий</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#001E49</code><code>#97C2FF</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#17074A;--sample-fg:#A9A9FF">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Фиолетовый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#17074A</code><code>#A9A9FF</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#420624;--sample-fg:#ECA1FF">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Розовый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#420624</code><code>#ECA1FF</code>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+            <section class="foundation-tab-panel palette-panel" id="palette-light" data-tab-panel data-palette-theme="light">
+              <h2 class="fallback-tab-title">
+                Светлая тема
+              </h2>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Поверхности
+                  </h2>
+                </div>
+                <div class="palette-grid">
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#EDEEEF;--sample-fg:#1D1E1F">
+                    <span>Страница</span><code>#EDEEEF</code>
+                  </div>
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#FFFFFF;--sample-fg:#1D1E1F">
+                    <span>Карточка</span><code>#FFFFFF</code>
+                  </div>
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#FFFFFF;--sample-fg:#1D1E1F">
+                    <span>Вложенная</span><code>#FFFFFF</code>
+                  </div>
+                  <div class="color-swatch color-swatch--surface" style="--sample-bg:#1D1E1F;--sample-fg:#FFFFFF">
+                    <span>Инверсная</span><code>#1D1E1F</code>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Текст
+                  </h2>
+                </div>
+                <div class="palette-grid">
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#1D1E1F">Аа</span>
+                    <div>
+                      <span>Основной</span><code>#1D1E1F</code>
+                    </div>
+                  </div>
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#393A3B">Аа</span>
+                    <div>
+                      <span>Второстепенный</span><code>#393A3B</code>
+                    </div>
+                  </div>
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#4B4C4D">Аа</span>
+                    <div>
+                      <span>Подпись</span><code>#4B4C4D</code>
+                    </div>
+                  </div>
+                  <div class="text-swatch">
+                    <span class="text-swatch__sample" aria-hidden="true" style="color:#969798">Аа</span>
+                    <div>
+                      <span>Недоступный</span><code>#969798</code>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Границы и фокус
+                  </h2>
+                </div>
+                <div class="palette-grid">
+                  <div class="border-swatch">
+                    <span>Тонкая</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#C8C9CA;--sample-line-width:1px"></span><code>#C8C9CA</code>
+                  </div>
+                  <div class="border-swatch">
+                    <span>Основная</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#AFB0B1;--sample-line-width:1px"></span><code>#AFB0B1</code>
+                  </div>
+                  <div class="border-swatch">
+                    <span>Контрастная</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#606162;--sample-line-width:1px"></span><code>#606162</code>
+                  </div>
+                  <div class="border-swatch">
+                    <span>Фокус</span><span class="border-swatch__line" aria-hidden="true" style="--sample-line:#147EFF;--sample-line-width:2px"></span><code>#147EFF</code>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Акцент
+                  </h2>
+                </div>
+                <div class="accent-grid">
+                  <div class="color-swatch" style="--sample-bg:#0A69DA;--sample-fg:#FFFFFF">
+                    <span>По умолчанию</span><code>#0A69DA</code>
+                  </div>
+                  <div class="color-swatch" style="--sample-bg:#0054B5;--sample-fg:#FFFFFF">
+                    <span>Наведение</span><code>#0054B5</code>
+                  </div>
+                  <div class="color-swatch" style="--sample-bg:#00397F;--sample-fg:#FFFFFF">
+                    <span>Нажатие</span><code>#00397F</code>
+                  </div>
+                </div>
+                <div class="accent-soft" style="--sample-bg:#DEECFF;--sample-fg:#001E49">
+                  <span>Мягкое выделение</span>
+                  <div>
+                    <span>Фон <code>#DEECFF</code></span><span>Текст <code>#001E49</code></span>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Статусы
+                  </h2>
+                  <span>Фон / текст</span>
+                </div>
+                <div class="palette-grid status-grid">
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#DDF8E5;--sample-fg:#01331A">
+                    <span>Успех</span>
+                    <div class="status-pair">
+                      <code>#DDF8E5</code> <span>/ <code>#01331A</code></span>
+                    </div>
+                  </div>
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#FFF5E4;--sample-fg:#3C2A00">
+                    <span>Внимание</span>
+                    <div class="status-pair">
+                      <code>#FFF5E4</code> <span>/ <code>#3C2A00</code></span>
+                    </div>
+                  </div>
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#FFE6E4;--sample-fg:#B6152A">
+                    <span>Ошибка</span>
+                    <div class="status-pair">
+                      <code>#FFE6E4</code> <span>/ <code>#B6152A</code></span>
+                    </div>
+                  </div>
+                  <div class="color-swatch color-swatch--status" style="--sample-bg:#DEECFF;--sample-fg:#001E49">
+                    <span>Информация</span>
+                    <div class="status-pair">
+                      <code>#DEECFF</code> <span>/ <code>#001E49</code></span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section class="foundation-section">
+                <div class="palette-heading">
+                  <h2>
+                    Декоративные цвета
+                  </h2>
+                  <span>Фон / текст</span>
+                </div>
+                <div class="decorative-grid">
+                  <div class="decorative-swatch" style="--sample-bg:#FFE6E4;--sample-fg:#B6152A">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Красный</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#FFE6E4</code><code>#B6152A</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#FFEAE2;--sample-fg:#B44100">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Оранжевый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#FFEAE2</code><code>#B44100</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#FFF5E4;--sample-fg:#775500">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Жёлтый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#FFF5E4</code><code>#775500</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#DDF8E5;--sample-fg:#015B32">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Зелёный</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#DDF8E5</code><code>#015B32</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#DEECFF;--sample-fg:#0054B5">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Синий</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#DEECFF</code><code>#0054B5</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#E2E4FF;--sample-fg:#552BDC">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Фиолетовый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#E2E4FF</code><code>#552BDC</code>
+                    </div>
+                  </div>
+                  <div class="decorative-swatch" style="--sample-bg:#F9E2FF;--sample-fg:#A5195F">
+                    <div class="decorative-swatch__circles" aria-hidden="true">
+                    </div>
+                    <span>Розовый</span>
+                    <div class="decorative-swatch__codes">
+                      <code>#F9E2FF</code><code>#A5195F</code>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+          </div>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

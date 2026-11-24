@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Колонки и поля для экранов с боковой панелью и без неё.">
+    <title>Сетки и структура экрана — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/foundations.css?v=20261124-theme-reveal">
+    <script src="js/tabs.js?v=20261124-theme-reveal" defer></script>
+  </head>
+  <body class="docs-page foundations-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html">Типографика</a>
+              <a href="colors.html">Цвета и темы</a>
+              <a href="grids.html" aria-current="page">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/ICONS-INDEX.md">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-digit.md">Code Digit</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-field.md">Code Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown-item.md">Dropdown Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-control.md">Selection Control</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-item.md">Selection Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-cell.md">Table Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-header-cell.md">Table Header Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Table Row</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-area.md">Text Area</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-field.md">Text Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/toggle.md">Toggle</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/upload-zone.md">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main foundations-main " id="main" tabindex="-1">
+          <!-- Макет из Paper; мобильная компоновка — в foundations.css. -->
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">
+              Сетки и структура экрана
+            </h1>
+            <p>
+              Колонки и поля для экранов с боковой панелью и без неё.
+            </p>
+          </section>
+          <div class="foundation-tab-widget grid-widget" data-tabs>
+            <nav class="foundation-tabs" data-tab-list aria-label="Размер экрана">
+              <a id="grid-tab-desktop" href="#grid-desktop" data-tab>Desktop</a><a id="grid-tab-tablet" href="#grid-tablet" data-tab>Tablet</a><a id="grid-tab-mobile" href="#grid-mobile" data-tab>Mobile</a>
+            </nav>
+            <section id="grid-desktop" class="foundation-tab-panel" data-tab-panel>
+              <h2 class="fallback-tab-title">
+                Desktop
+              </h2>
+              <div class="grid-comparison">
+                <section class="grid-example">
+                  <h2>
+                    Без навигации
+                  </h2>
+                  <div class="grid-stage grid-stage--desktop">
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="490" height="275.625" viewBox="0 0 1600 900" style="display:inline-block;flex-shrink:0">
+                      <g>
+                        <rect x="0" y="0" width="1600" height="900" rx="8" fill="var(--color-surface-page)" />
+                        <rect x="200" y="85.5" width="576" height="30.6" rx="6.12" fill="var(--color-content-secondary)" />
+                        <rect x="200" y="130.1" width="864" height="10.8" rx="3" fill="var(--color-content-disabled)" />
+                        <rect x="200" y="211.5" width="386.667" height="243" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="606.667" y="211.5" width="386.667" height="243" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="1013.333" y="211.5" width="386.667" height="243" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="200" y="504" width="1200" height="49.5" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="200" y="576" width="1200" height="49.5" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="200" y="648" width="1200" height="49.5" rx="4" fill="var(--color-surface-raised)" />
+                      </g>
+                      <g style="opacity:0.22">
+                        <rect x="200" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="301.667" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="403.333" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="505" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="606.667" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="708.333" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="810" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="911.667" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1013.333" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1115" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1216.667" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1318.333" y="0" width="81.667" height="900" rx="0" fill="var(--color-accent-fill)" />
+                      </g>
+                    </svg>
+                  </div>
+                  <dl class="grid-metrics">
+                    <div>
+                      <dt>
+                        Экран
+                      </dt>
+                      <dd>
+                        1600 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Контент
+                      </dt>
+                      <dd>
+                        1200 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Поля
+                      </dt>
+                      <dd>
+                        200 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Колонки
+                      </dt>
+                      <dd>
+                        12
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Промежутки
+                      </dt>
+                      <dd>
+                        20 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+                <section class="grid-example">
+                  <h2>
+                    С навигацией
+                  </h2>
+                  <div class="grid-stage grid-stage--desktop">
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="490" height="275.625" viewBox="0 0 1600 900" style="display:inline-block;flex-shrink:0">
+                      <g>
+                        <rect x="0" y="0" width="1600" height="900" rx="8" fill="var(--color-surface-page)" />
+                        <rect x="0" y="0" width="1600" height="56" rx="0" fill="var(--color-decorative-green-surface)" />
+                        <rect x="20" y="22" width="85" height="12" rx="4" fill="var(--color-decorative-green-content)" />
+                        <rect x="0" y="56" width="244" height="844" rx="0" fill="var(--color-decorative-orange-surface)" />
+                        <rect x="24" y="100" width="180" height="10" rx="3" fill="var(--color-decorative-orange-content)" />
+                        <rect x="24" y="148" width="150" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="24" y="196" width="180" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="24" y="244" width="150" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="24" y="292" width="180" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="276" y="141.5" width="624" height="30.6" rx="6.12" fill="var(--color-content-secondary)" />
+                        <rect x="276" y="186.1" width="936" height="10.8" rx="3" fill="var(--color-content-disabled)" />
+                        <rect x="276" y="267.5" width="420" height="243" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="716" y="267.5" width="420" height="243" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="1156" y="267.5" width="420" height="243" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="276" y="560" width="1300" height="49.5" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="276" y="632" width="1300" height="49.5" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="276" y="704" width="1300" height="49.5" rx="4" fill="var(--color-surface-raised)" />
+                      </g>
+                      <g style="opacity:0.22">
+                        <rect x="276" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="386" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="496" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="606" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="716" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="826" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="936" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1046" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1156" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1266" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1376" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="1486" y="56" width="90" height="844" rx="0" fill="var(--color-accent-fill)" />
+                      </g>
+                    </svg>
+                  </div>
+                  <dl class="grid-metrics">
+                    <div>
+                      <dt>
+                        Панель слева
+                      </dt>
+                      <dd>
+                        244 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Отступ
+                      </dt>
+                      <dd>
+                        32 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Поле справа
+                      </dt>
+                      <dd>
+                        24 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Колонки
+                      </dt>
+                      <dd>
+                        12 × 90 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Промежутки
+                      </dt>
+                      <dd>
+                        20 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </section>
+            <section id="grid-tablet" class="foundation-tab-panel" data-tab-panel>
+              <h2 class="fallback-tab-title">
+                Tablet
+              </h2>
+              <div class="grid-comparison">
+                <section class="grid-example">
+                  <h2>
+                    Без навигации
+                  </h2>
+                  <div class="grid-stage grid-stage--tablet">
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="432" height="324" viewBox="0 0 960 720" style="display:inline-block;flex-shrink:0">
+                      <g>
+                        <rect x="0" y="0" width="960" height="720" rx="8" fill="var(--color-surface-page)" />
+                        <rect x="24" y="68.4" width="437.76" height="24.48" rx="4.896" fill="var(--color-content-secondary)" />
+                        <rect x="24" y="106.88" width="656.64" height="8.64" rx="3" fill="var(--color-content-disabled)" />
+                        <rect x="24" y="169.2" width="448" height="194.4" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="488" y="169.2" width="448" height="194.4" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="24" y="403.2" width="912" height="39.6" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="24" y="460.8" width="912" height="39.6" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="24" y="518.4" width="912" height="39.6" rx="4" fill="var(--color-surface-raised)" />
+                      </g>
+                      <g style="opacity:0.22">
+                        <rect x="24" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="101.333" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="178.667" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="256" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="333.333" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="410.667" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="488" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="565.333" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="642.667" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="720" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="797.333" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="874.667" y="0" width="61.333" height="720" rx="0" fill="var(--color-accent-fill)" />
+                      </g>
+                    </svg>
+                  </div>
+                  <dl class="grid-metrics">
+                    <div>
+                      <dt>
+                        Экран
+                      </dt>
+                      <dd>
+                        960 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Контент
+                      </dt>
+                      <dd>
+                        912 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Поля
+                      </dt>
+                      <dd>
+                        24 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Колонки
+                      </dt>
+                      <dd>
+                        12
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Промежутки
+                      </dt>
+                      <dd>
+                        16 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+                <section class="grid-example">
+                  <h2>
+                    С навигацией
+                  </h2>
+                  <div class="grid-stage grid-stage--tablet">
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="432" height="324" viewBox="0 0 960 720" style="display:inline-block;flex-shrink:0">
+                      <g>
+                        <rect x="0" y="0" width="960" height="720" rx="8" fill="var(--color-surface-page)" />
+                        <rect x="0" y="0" width="960" height="56" rx="0" fill="var(--color-decorative-green-surface)" />
+                        <rect x="20" y="22" width="85" height="12" rx="4" fill="var(--color-decorative-green-content)" />
+                        <rect x="0" y="56" width="204" height="664" rx="0" fill="var(--color-decorative-orange-surface)" />
+                        <rect x="24" y="100" width="140" height="10" rx="3" fill="var(--color-decorative-orange-content)" />
+                        <rect x="24" y="148" width="110" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="24" y="196" width="140" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="24" y="244" width="110" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="24" y="292" width="140" height="10" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="232" y="124.4" width="337.92" height="24.48" rx="4.896" fill="var(--color-content-secondary)" />
+                        <rect x="232" y="162.88" width="506.88" height="8.64" rx="3" fill="var(--color-content-disabled)" />
+                        <rect x="232" y="225.2" width="344" height="194.4" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="592" y="225.2" width="344" height="194.4" rx="12" fill="var(--color-surface-hover)" />
+                        <rect x="232" y="459.2" width="704" height="39.6" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="232" y="516.8" width="704" height="39.6" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="232" y="574.4" width="704" height="39.6" rx="4" fill="var(--color-surface-raised)" />
+                      </g>
+                      <g style="opacity:0.22">
+                        <rect x="232" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="322" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="412" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="502" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="592" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="682" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="772" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="862" y="56" width="74" height="664" rx="0" fill="var(--color-accent-fill)" />
+                      </g>
+                    </svg>
+                  </div>
+                  <dl class="grid-metrics">
+                    <div>
+                      <dt>
+                        Панель слева
+                      </dt>
+                      <dd>
+                        204 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Панель сверху
+                      </dt>
+                      <dd>
+                        56 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Поле справа
+                      </dt>
+                      <dd>
+                        24 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Колонки
+                      </dt>
+                      <dd>
+                        8 × 74 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Промежутки
+                      </dt>
+                      <dd>
+                        16 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </section>
+            <section id="grid-mobile" class="foundation-tab-panel" data-tab-panel>
+              <h2 class="fallback-tab-title">
+                Mobile
+              </h2>
+              <div class="grid-comparison">
+                <section class="grid-example">
+                  <h2>
+                    Без навигации
+                  </h2>
+                  <div class="grid-stage grid-stage--mobile">
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="195" height="320" viewBox="0 0 390 640" style="display:inline-block;flex-shrink:0">
+                      <g>
+                        <rect x="0" y="0" width="390" height="640" rx="16" fill="var(--color-surface-page)" />
+                        <rect x="16" y="60.8" width="171.84" height="21.76" rx="4.352" fill="var(--color-content-secondary)" />
+                        <rect x="16" y="96.56" width="257.76" height="7.68" rx="3" fill="var(--color-content-disabled)" />
+                        <rect x="16" y="150.4" width="171" height="172.8" rx="8" fill="var(--color-surface-hover)" />
+                        <rect x="203" y="150.4" width="171" height="172.8" rx="8" fill="var(--color-surface-hover)" />
+                        <rect x="16" y="358.4" width="358" height="35.2" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="16" y="409.6" width="358" height="35.2" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="16" y="460.8" width="358" height="35.2" rx="4" fill="var(--color-surface-raised)" />
+                      </g>
+                      <g style="opacity:0.22">
+                        <rect x="16" y="0" width="77.5" height="640" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="109.5" y="0" width="77.5" height="640" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="203" y="0" width="77.5" height="640" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="296.5" y="0" width="77.5" height="640" rx="0" fill="var(--color-accent-fill)" />
+                      </g>
+                    </svg>
+                  </div>
+                  <dl class="grid-metrics">
+                    <div>
+                      <dt>
+                        Экран
+                      </dt>
+                      <dd>
+                        390 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Контент
+                      </dt>
+                      <dd>
+                        358 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Поля
+                      </dt>
+                      <dd>
+                        16 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Колонки
+                      </dt>
+                      <dd>
+                        4
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Промежутки
+                      </dt>
+                      <dd>
+                        16 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+                <section class="grid-example">
+                  <h2>
+                    С навигацией
+                  </h2>
+                  <div class="grid-stage grid-stage--mobile">
+                    <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="195" height="320" viewBox="0 0 390 640" style="display:inline-block;flex-shrink:0">
+                      <g>
+                        <rect x="0" y="0" width="390" height="640" rx="16" fill="var(--color-surface-page)" />
+                        <rect x="0" y="0" width="390" height="56" rx="0" fill="var(--color-decorative-green-surface)" />
+                        <rect x="20" y="22" width="55" height="12" rx="4" fill="var(--color-decorative-green-content)" />
+                        <rect x="0" y="584" width="390" height="56" rx="0" fill="var(--color-decorative-orange-surface)" />
+                        <rect x="28" y="608" width="40" height="8" rx="3" fill="var(--color-decorative-orange-content)" />
+                        <rect x="118" y="608" width="40" height="8" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="208" y="608" width="40" height="8" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="298" y="608" width="40" height="8" rx="3" fill="var(--color-decorative-orange-content)" style="opacity:0.5" />
+                        <rect x="16" y="116.8" width="171.84" height="21.76" rx="4.352" fill="var(--color-content-secondary)" />
+                        <rect x="16" y="152.56" width="257.76" height="7.68" rx="3" fill="var(--color-content-disabled)" />
+                        <rect x="16" y="206.4" width="171" height="172.8" rx="8" fill="var(--color-surface-hover)" />
+                        <rect x="203" y="206.4" width="171" height="172.8" rx="8" fill="var(--color-surface-hover)" />
+                        <rect x="16" y="414.4" width="358" height="35.2" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="16" y="465.6" width="358" height="35.2" rx="4" fill="var(--color-surface-raised)" />
+                        <rect x="16" y="516.8" width="358" height="35.2" rx="4" fill="var(--color-surface-raised)" />
+                      </g>
+                      <g style="opacity:0.22">
+                        <rect x="16" y="56" width="77.5" height="528" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="109.5" y="56" width="77.5" height="528" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="203" y="56" width="77.5" height="528" rx="0" fill="var(--color-accent-fill)" />
+                        <rect x="296.5" y="56" width="77.5" height="528" rx="0" fill="var(--color-accent-fill)" />
+                      </g>
+                    </svg>
+                  </div>
+                  <dl class="grid-metrics">
+                    <div>
+                      <dt>
+                        Экран
+                      </dt>
+                      <dd>
+                        390 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Высота панелей
+                      </dt>
+                      <dd>
+                        56 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Поля
+                      </dt>
+                      <dd>
+                        16 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Колонки
+                      </dt>
+                      <dd>
+                        4
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        Промежутки
+                      </dt>
+                      <dd>
+                        16 <span class="metric-unit">px</span>
+                      </dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </section>
+          </div>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

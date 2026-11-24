@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Roboto Flex для заголовков, Roboto для текста и подписей.">
+    <title>Типографика — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-motion">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/foundations.css?v=20261124-theme-reveal">
+    <script src="js/tabs.js?v=20261124-theme-reveal" defer></script>
+  </head>
+  <body class="docs-page foundations-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html" aria-current="page">Типографика</a>
+              <a href="colors.html">Цвета и темы</a>
+              <a href="grids.html">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/ICONS-INDEX.md">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/badge.md">Badge</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/button.md">Button</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/chip.md">Chip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-digit.md">Code Digit</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/code-field.md">Code Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown.md">Dropdown</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/dropdown-item.md">Dropdown Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/link.md">Link</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-control.md">Selection Control</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/selection-item.md">Selection Item</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-cell.md">Table Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-header-cell.md">Table Header Cell</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Table Row</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-area.md">Text Area</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/text-field.md">Text Field</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/toggle.md">Toggle</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+              <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/upload-zone.md">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main foundations-main typography-main" id="main" tabindex="-1">
+          <!-- Макет из Paper; мобильная компоновка — в foundations.css. -->
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">
+              Типографика
+            </h1>
+            <p>
+              Roboto Flex для заголовков, Roboto для текста и подписей.
+            </p>
+          </section>
+          <table class="type-table">
+            <thead>
+              <tr>
+                <th scope="col">
+                  Стиль
+                </th>
+                <th scope="col">
+                  Пример
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">
+                  <span>Title/L</span><small>32 / 36 px</small>
+                </th>
+                <td>
+                  <span class="type-example type-example--title" style="font-size:32px;line-height:36px">Настройки проекта</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Title/M</span><small>24 / 30 px</small>
+                </th>
+                <td>
+                  <span class="type-example type-example--title" style="font-size:24px;line-height:30px">Участники</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Title/S</span><small>20 / 26 px</small>
+                </th>
+                <td>
+                  <span class="type-example type-example--title" style="font-size:20px;line-height:26px">Доступ к проекту</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Body/L</span><small>18 / 26 px</small>
+                </th>
+                <td>
+                  <span class="type-example " style="font-size:18px;line-height:26px">Пригласите коллег для совместной работы.</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Body/M</span><small>16 / 24 px</small>
+                </th>
+                <td>
+                  <span class="type-example " style="font-size:16px;line-height:24px">Изменения сохраняются в этом проекте.</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Body/S</span><small>14 / 20 px</small>
+                </th>
+                <td>
+                  <span class="type-example " style="font-size:14px;line-height:20px">Доступ можно изменить в настройках.</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Caption/M</span><small>12 / 16 px</small>
+                </th>
+                <td>
+                  <span class="type-example " style="font-size:12px;line-height:16px">Обновлено сегодня</span>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">
+                  <span>Caption/S</span><small>10 / 14 px</small>
+                </th>
+                <td>
+                  <span class="type-example " style="font-size:10px;line-height:14px">Необязательное поле</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
