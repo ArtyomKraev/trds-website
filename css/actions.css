@@ -40,10 +40,14 @@
 [data-variant="primary"] .action-link { --link-color: var(--color-content-primary); --link-hover: var(--color-content-primary-hover); --link-pressed: var(--color-content-primary-pressed); }
 .action-link[data-preview-state="hover"] { color: var(--link-hover); }
 .action-link[data-preview-state="pressed"] { color: var(--link-pressed); }
-.action-link[data-preview-state="hover"] > span { text-decoration: underline; text-underline-offset: 3px; }
+.action-link .ds-link__label { line-height: inherit; }
+.action-link:is([data-preview-state="hover"], [data-preview-state="pressed"], [data-preview-state="focused"]) .ds-link__label::after,
+.action-link:focus-visible .ds-link__label::after { transform: scaleX(1); }
+.action-link .external-icon { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1; }
 .action-link[aria-disabled="true"] { color: var(--color-content-disabled); }
 [data-size="s"] .action-link { font-size: 14px; line-height: 20px; gap: 4px; }
-[data-size="s"] .action-link svg { width: 20px; height: 20px; }
+[data-size="s"] .action-link .external-icon { width: 12px; height: 12px; }
+[data-size="l"] .action-link .external-icon { width: 18px; height: 18px; }
 [data-size="l"] .action-link { font-size: 18px; line-height: 26px; }
 .action-badge, .action-playground .action-chip {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex-shrink: 0;
@@ -54,15 +58,27 @@
 .action-badge { box-shadow: 0 2px 6px #00000018, 0 1px 2px #00000010; }
 [data-size="s"] :is(.action-badge, .action-chip) { height: 24px; padding-inline: 8px; gap: 4px; font-size: 12px; line-height: 16px; }
 [data-size="l"] :is(.action-badge, .action-chip) { height: 40px; padding-inline: 16px; font-size: 16px; line-height: 24px; }
-.chip-set { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 24px; max-width: 100%; }
-.chip-icon { width: 24px; height: 24px; flex: 0 0 24px; }
+.chip-set { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px; max-width: 100%; }
+.action-playground .action-chip { gap: 6px; }
+.chip-icon { width: 16px; height: 16px; flex: 0 0 16px; }
 .action-chip[aria-pressed="true"] { background: var(--color-accent-surface); color: var(--color-content-accent); }
 .action-chip[data-preview-state="hover"] { background: var(--color-surface-hover); }
 .action-chip[data-preview-state="pressed"] { background: var(--color-surface-pressed); }
 .action-chip[aria-pressed="true"][data-preview-state="hover"] { background: #00397f; }
 .action-chip[aria-pressed="true"][data-preview-state="pressed"] { background: #0054b5; }
-[data-size="s"] .chip-icon { width: 16px; height: 16px; flex-basis: 16px; }
+[data-size="s"] .chip-icon { width: 14px; height: 14px; flex-basis: 14px; }
+[data-size="s"] .action-chip { gap: 4px; }
+[data-size="l"] .chip-icon { width: 20px; height: 20px; flex-basis: 20px; }
+[data-size="l"] .action-chip { gap: 8px; }
 .action-playground .action-chip:disabled { background: var(--color-surface-disabled); color: var(--color-content-disabled); }
+.chip-scene { position: absolute; inset: 0; overflow: clip; pointer-events: none; z-index: 3; }
+.chip-scene *, .chip-scene { pointer-events: none !important; }
+.chip-ghost, .chip-icon-piece { position: absolute; margin: 0; transform-origin: center; }
+.action-playground .chip-ghost { transition: none; }
+.chip-icon-piece > svg { display: block; width: 100%; height: 100%; }
+.chip-play-hidden { opacity: 0 !important; }
+.chip-spark { position: absolute; width: 2px; height: 6px; border-radius: 2px; background: var(--color-content-accent); }
+.chip-cut { position: absolute; width: 1px; background: var(--color-content-accent); transform-origin: center; }
 [data-action-component="dropdown"] .playground__preview { min-height: 426px; }
 .dropdown-demo { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 240px; max-width: 100%; }
 .dropdown-trigger { display: inline-flex; align-items: center; gap: 12px; height: 48px; padding: 0 16px; border: 0; border-radius: var(--radius-pill); background: var(--color-surface-raised); color: var(--color-content-primary); font-size: 16px; line-height: 24px; }
@@ -70,7 +86,7 @@
 .dropdown-trigger { overflow: hidden; white-space: nowrap; }
 .dropdown-trigger > svg { transition: transform 400ms cubic-bezier(.34,1.7,.5,1); }
 .dropdown-trigger[aria-expanded="true"] > svg { transform: rotate(180deg); }
-.action-menu { position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; padding: 8px; border: 1px solid var(--color-border-default); border-radius: 16px; background: var(--color-surface-raised); box-shadow: 0 12px 32px #00000038, 0 2px 8px #0000001f; transform-origin: top center; }
+.action-menu { position: relative; isolation: isolate; display: flex; flex-direction: column; width: 100%; padding: 8px; border: 1px solid var(--color-border-default); border-radius: 16px; background: var(--color-surface-raised); box-shadow: 0 2px 8px rgb(0 0 0 / 8%), 0 1px 2px rgb(0 0 0 / 4%); transform-origin: top center; }
 .action-menu[inert] { opacity: 0; transform: translateY(-8px) scale(.92,.86); pointer-events: none; }
 .dropdown-highlight { position: absolute; z-index: 0; top: 0; left: 8px; right: 8px; height: 48px; border-radius: 8px; background: var(--color-surface-hover); opacity: 0; pointer-events: none; transition: transform 240ms cubic-bezier(.22,1,.36,1), opacity 140ms ease, background-color 160ms ease; }
 .dropdown-highlight[data-selected] { background: #00397f; }
@@ -89,9 +105,12 @@
 .action-playground .dropdown-item:disabled { color: var(--color-content-disabled); background: transparent; }
 @media (hover: hover) {
   .dropdown-trigger:hover { background: var(--color-surface-hover); }
+  .action-link:not([aria-disabled="true"]):hover { color: var(--link-hover); }
+  .action-link:not([aria-disabled="true"]):hover .ds-link__label::after { transform: scaleX(1); }
+  .action-link:not([aria-disabled="true"]):active { color: var(--link-pressed); }
 }
 @media (max-width: 48rem) {
-  .chip-set { gap: 12px; }
+  .chip-set { gap: 8px; }
   [data-action-component="dropdown"] .playground__preview { padding-inline: 16px; min-height: 410px; }
 }
 @media (prefers-reduced-motion: reduce) {
