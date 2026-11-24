@@ -10,23 +10,115 @@ document.querySelectorAll('[data-component]').forEach((form) => {
     settings.filter((input) => input.name === name).forEach((input) => { input.checked = input.value === value; });
   };
   let activeField = 'text';
+  let activeSelection = 'item';
   const tabs = [...form.querySelectorAll('[role="tab"]')];
+  const defaultTab = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
   const panels = [...form.querySelectorAll('[role="tabpanel"]')];
   const digits = [...form.querySelectorAll('.ds-code__digit')];
   const choices = [...form.querySelectorAll('.ds-choice__input')];
   const email = form.querySelector('#demo-email');
   const comment = form.querySelector('#demo-comment');
   const toggle = form.querySelector('#demo-toggle');
+  const bell = form.querySelector('.toggle-bell');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let bellAnimation;
+  let selectionFall = [];
+  const stopSelectionFall = () => { selectionFall.forEach((animation) => animation.cancel()); selectionFall = []; };
+  const dropSelection = () => {
+    stopSelectionFall();
+    const items = choices.filter((input) => input.name === 'example-choice');
+    if (reducedMotion.matches || activeSelection !== 'item' || state.description !== 'single' || !items.length || !items.every((input) => input.type === 'checkbox' && input.checked)) return;
+    const rows = items.map((input) => input.closest('.ds-choice'));
+    const stage = preview.getBoundingClientRect();
+    const bounds = rows.map((row) => row.getBoundingClientRect());
+    let top = stage.bottom - 32 - bounds.reduce((sum, rect) => sum + rect.height + 2, 0);
+    selectionFall = rows.map((row, index) => {
+      const y = Math.max(0, top - bounds[index].top);
+      top += bounds[index].height + 2;
+      const x = index ? 4 : -5;
+      const angle = index ? 2 : -3;
+      return row.animate([
+        { transform: 'none', offset: 0, easing: 'cubic-bezier(.4,0,1,1)' },
+        { transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`, offset: .25, easing: 'ease-out' },
+        { transform: `translate(${x}px, ${Math.max(0, y - 7)}px) rotate(${angle}deg)`, offset: .31, easing: 'ease-in' },
+        { transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`, offset: .37 },
+        { transform: `translate(${x}px, ${y}px) rotate(${angle}deg)`, offset: .72, easing: 'cubic-bezier(.22,.8,.25,1)' },
+        { transform: 'none', offset: 1 }
+      ], { duration: 1800, delay: index * 45 });
+    });
+  };
+  // Нативные inputs остаются доступны; отдельный декоративный слой двигает только цифры.
+  const codeClips = digits.map((input, index) => {
+    const clip = document.createElement('span');
+    clip.className = 'ds-code__clip';
+    clip.setAttribute('aria-hidden', 'true');
+    clip.style.gridColumn = input.style.gridColumn = String(index + 1);
+    input.placeholder = ' ';
+    input.parentElement.append(clip);
+    return clip;
+  });
+  const renderCode = (animate = false) => {
+    let sequence = 0;
+    digits.forEach((input, index) => {
+      const clip = codeClips[index];
+      if (clip.dataset.value === input.value) return;
+      const previous = clip.dataset.value;
+      clip.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
+      clip.replaceChildren();
+      clip.dataset.value = input.value;
+      if (!input.value) {
+        if (animate && previous && !reducedMotion.matches) {
+          const outgoing = document.createElement('span');
+          outgoing.className = 'ds-code__glyph';
+          outgoing.dataset.exiting = '';
+          outgoing.textContent = previous;
+          clip.append(outgoing);
+          const exit = outgoing.animate([
+            { transform: 'none' },
+            { transform: 'translateY(-36px) scale(.94)' }
+          ], { duration: 220, easing: 'cubic-bezier(.4,0,.7,.3)', fill: 'forwards' });
+          exit.onfinish = () => outgoing.remove();
+        }
+        return;
+      }
+      const glyph = document.createElement('span');
+      glyph.className = 'ds-code__glyph';
+      glyph.textContent = input.value;
+      clip.append(glyph);
+      if (animate && !reducedMotion.matches) glyph.animate([
+        { transform: 'translateY(-36px) scale(.92)', offset: 0, easing: 'cubic-bezier(.18,.75,.25,1)' },
+        { transform: 'translateY(3px) scale(1.04)', offset: .65, easing: 'ease-out' },
+        { transform: 'translateY(-1px) scale(1)', offset: .84, easing: 'ease-in-out' },
+        { transform: 'none', offset: 1 }
+      ], { duration: 400, delay: sequence++ * 35, fill: 'backwards' });
+    });
+  };
+  renderCode();
+  if (digits.length) digits[0].parentElement.dataset.animated = '';
   const fileInput = form.querySelector('#demo-files');
   const zone = form.querySelector('.ds-upload');
   let files = [];
   let dragDepth = 0;
+  const defaultState = kind === 'fields' || kind === 'upload' ? 'default' : 'enabled';
+  const previewHasFocus = () => preview.contains(document.activeElement) && document.activeElement.matches('input, textarea, .toggle-bell');
+  const ringBell = () => {
+    bellAnimation?.cancel();
+    if (!bell || reducedMotion.matches) return;
+    bellAnimation = bell.querySelector('.toggle-bell__on').animate(
+      [0, -16, 13, -9, 6, -3, 0].map((angle) => ({ transform: `rotate(${angle}deg)` })),
+      { duration: 560, easing: 'ease-in-out' }
+    );
+  };
 
   const currentInputs = () => activeField === 'code' ? digits : [activeField === 'area' ? comment : email];
-  const syncValue = () => setSetting('value', currentInputs().some((input) => input.value.length) ? 'filled' : 'empty');
+  const syncValue = () => { setSetting('value', currentInputs().some((input) => input.value.length) ? 'filled' : 'empty'); renderCode(true); };
   const updateCounter = () => { form.querySelector('#comment-counter').value = `${comment.value.length}/200`; };
   const applyState = () => {
-    form.dataset.state = state.state || 'enabled';
+    const focused = previewHasFocus();
+    const effectiveState = focused ? 'focused' : state.state || defaultState;
+    form.dataset.focused = String(focused);
+    form.dataset.state = ['error', 'disabled'].includes(state.state) ? state.state : effectiveState;
+    settings.filter((input) => input.name === 'state').forEach((input) => { input.checked = input.value === effectiveState; });
     form.dataset.size = state.size || 'm';
     if (kind === 'fields') {
       [email, comment, ...digits].forEach((input) => {
@@ -40,6 +132,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       form.querySelectorAll('.field-error').forEach((error) => { error.hidden = state.state !== 'error'; });
       form.querySelector('[data-setting="size"]').hidden = activeField === 'code';
       updateCounter();
+      renderCode();
     }
     if (choices.length) {
       choices.forEach((input) => {
@@ -47,7 +140,12 @@ document.querySelectorAll('[data-component]').forEach((form) => {
         input.disabled = state.state === 'disabled';
         input.setAttribute('aria-invalid', String(state.state === 'error'));
       });
-      if (kind === 'selection-control') choices[0].checked = state.selected === 'on';
+      if (kind === 'selection') {
+        form.dataset.description = state.description;
+        form.querySelector('#demo-choice').checked = state.selected === 'on';
+        form.querySelector('[data-setting="selected"]').hidden = activeSelection !== 'control';
+        form.querySelector('[data-setting="description"]').hidden = activeSelection !== 'item';
+      }
       form.querySelectorAll('.ds-choice__helper').forEach((helper) => {
         helper.hidden = state.description === 'single';
         const input = helper.closest('.ds-choice').querySelector('input');
@@ -55,7 +153,15 @@ document.querySelectorAll('[data-component]').forEach((form) => {
         else input.setAttribute('aria-describedby', helper.id);
       });
     }
-    if (toggle) toggle.checked = state.selected === 'on';
+    if (toggle) {
+      const wasOn = toggle.checked;
+      toggle.checked = state.selected === 'on';
+      bell.setAttribute('aria-pressed', String(toggle.checked));
+      bell.querySelector('.toggle-bell__on').hidden = !toggle.checked;
+      bell.querySelector('.toggle-bell__off').hidden = toggle.checked;
+      if (toggle.checked && !wasOn) ringBell();
+      if (!toggle.checked) bellAnimation?.cancel();
+    }
     if (zone) {
       const dragging = state.state === 'dragging' || dragDepth > 0;
       form.dataset.dragging = String(dragging);
@@ -63,14 +169,16 @@ document.querySelectorAll('[data-component]').forEach((form) => {
     }
   };
   const selectTab = (tab, focus = false) => {
-    activeField = tab.id.replace('tab-', '');
+    stopSelectionFall();
+    if (kind === 'fields') activeField = tab.id.replace('tab-', '');
+    else activeSelection = tab.id.replace('tab-', '');
     tabs.forEach((item) => {
       const selected = item === tab;
       item.setAttribute('aria-selected', String(selected));
       item.tabIndex = selected ? 0 : -1;
     });
     panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
-    syncValue();
+    if (kind === 'fields') syncValue();
     applyState();
     if (focus) tab.focus({ preventScroll: true });
   };
@@ -91,22 +199,52 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   form.addEventListener('change', (event) => {
     const input = event.target;
     if (!input.closest('.play-setting')) return;
-    readSettings();
+    stopSelectionFall();
+    state[input.name] = input.value;
     if (kind === 'fields' && input.name === 'value') {
       const values = activeField === 'text' ? ['name@company.ru'] : activeField === 'area' ? ['Добавьте доступ для команды.'] : ['1','2','3','4','5','6'];
       currentInputs().forEach((field, i) => { field.value = state.value === 'filled' ? values[i] : ''; });
     }
     // Смена Checkbox → Radio сохраняет только один выбранный элемент.
     if (choices.length && input.name === 'type' && state.type === 'radio') {
-      const first = choices.find((choice) => choice.checked);
-      choices.forEach((choice) => { choice.checked = choice === first; });
+      const items = choices.filter((choice) => choice.name === 'example-choice');
+      const first = items.find((choice) => choice.checked);
+      items.forEach((choice) => { choice.checked = choice === first; });
     }
     applyState();
   });
   choices.forEach((input) => input.addEventListener('change', () => {
-    if (kind === 'selection-control') setSetting('selected', input.checked ? 'on' : 'off');
+    if (input.id === 'demo-choice') setSetting('selected', input.checked ? 'on' : 'off');
+    else dropSelection();
   }));
-  toggle?.addEventListener('change', () => setSetting('selected', toggle.checked ? 'on' : 'off'));
+  toggle?.addEventListener('change', () => {
+    setSetting('selected', toggle.checked ? 'on' : 'off');
+    applyState();
+    if (toggle.checked) ringBell();
+  });
+  bell?.addEventListener('click', () => {
+    setSetting('selected', toggle.checked ? 'off' : 'on');
+    applyState();
+  });
+  reducedMotion.addEventListener('change', () => {
+    if (!reducedMotion.matches) return;
+    bellAnimation?.cancel();
+    stopSelectionFall();
+    codeClips.forEach((clip) => {
+      clip.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
+      clip.querySelectorAll('[data-exiting]').forEach((glyph) => glyph.remove());
+    });
+  });
+  preview.addEventListener('pointerdown', stopSelectionFall);
+  preview.addEventListener('keydown', stopSelectionFall);
+  window.addEventListener('resize', stopSelectionFall);
+  preview.addEventListener('focusin', applyState);
+  preview.addEventListener('focusout', (event) => {
+    if (preview.contains(event.relatedTarget)) return;
+    if (state.state === 'focused') state.state = defaultState;
+    // Новый activeElement устанавливается после focusout; не перехватываем фокус.
+    queueMicrotask(applyState);
+  });
   if (kind === 'fields') {
     [email, comment].forEach((input) => input.addEventListener('input', () => {
       syncValue();
@@ -128,6 +266,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       if (!clean) return;
       const from = clean.length === 6 ? 0 : start;
       [...clean].slice(0, 6 - from).forEach((value, offset) => { digits[from + offset].value = value; });
+      renderCode(true);
       const next = digits[Math.min(from + clean.length, 5)];
       next.focus({ preventScroll: true });
       next.select();
@@ -167,8 +306,21 @@ document.querySelectorAll('[data-component]').forEach((form) => {
     list.hidden = !files.length;
     files.forEach((file, index) => {
       const row = document.createElement('li');
+      const icon = document.createElement('span');
+      icon.className = 'upload-file__icon';
+      icon.append(form.querySelector('#file-icon').content.cloneNode(true));
+      const details = document.createElement('span');
+      details.className = 'upload-file__details';
       const label = document.createElement('span');
+      label.className = 'upload-file__name';
       label.textContent = file.name;
+      label.title = file.name;
+      const size = document.createElement('span');
+      size.className = 'upload-file__size';
+      const units = ['Б', 'КБ', 'МБ', 'ГБ'];
+      const unit = file.size ? Math.min(Math.floor(Math.log(file.size) / Math.log(1024)), 3) : 0;
+      size.textContent = `${new Intl.NumberFormat('ru-RU', { maximumFractionDigits: unit ? 1 : 0 }).format(file.size / 1024 ** unit)} ${units[unit]}`;
+      details.append(label, size);
       const remove = document.createElement('button');
       remove.type = 'button';
       remove.setAttribute('aria-label', `Убрать ${file.name}`);
@@ -179,7 +331,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
         const remaining = list.querySelectorAll('button');
         (remaining[Math.min(index, remaining.length - 1)] || fileInput).focus({ preventScroll: true });
       });
-      row.append(label, remove);
+      row.append(icon, details, remove);
       list.append(row);
     });
     form.querySelector('#upload-status').textContent = files.length ? `Выбрано файлов: ${files.length}` : 'Файлы не выбраны';
@@ -223,6 +375,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   }
   form.addEventListener('reset', (event) => {
     event.preventDefault();
+    stopSelectionFall();
     settings.forEach((input) => { input.checked = input.defaultChecked; });
     readSettings();
     preview.querySelectorAll('input, textarea').forEach((input) => {
@@ -230,10 +383,18 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       else input.value = '';
     });
     choices.forEach((input) => { input.type = 'checkbox'; input.checked = input.defaultChecked; });
-    if (tabs.length) selectTab(tabs[0]);
+    if (tabs.length) selectTab(defaultTab);
     if (zone) { files = []; dragDepth = 0; renderFiles(); }
     applyState();
   });
   readSettings();
+  if (kind === 'selection') {
+    const fromHash = tabs.find((tab) => tab.id === `tab-${location.hash.slice(1)}`);
+    selectTab(fromHash || defaultTab);
+    window.addEventListener('hashchange', () => {
+      const requested = tabs.find((tab) => tab.id === `tab-${location.hash.slice(1)}`);
+      if (requested) selectTab(requested);
+    });
+  }
   applyState();
 });
