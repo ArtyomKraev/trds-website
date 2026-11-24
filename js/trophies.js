@@ -59,6 +59,7 @@
     } catch { /* Storage may be unavailable; achievements still work in this page. */ }
   }
   const motions = new Set();
+  let cancelToastDrag = () => {};
   function animate(node, frames, options) {
     if (reduced.matches || document.hidden) return;
     const animation = node.animate(frames, options);
@@ -66,7 +67,7 @@
     animation.finished.then(() => { motions.delete(animation); animation.cancel(); }, () => motions.delete(animation));
     return animation;
   }
-  function stopMotions() { motions.forEach(animation => animation.cancel()); motions.clear(); }
+  function stopMotions() { cancelToastDrag(); motions.forEach(animation => animation.cancel()); motions.clear(); }
   const count = () => Object.keys(state.unlocked).length;
   const header = document.querySelector('.docs-header, .site-header');
   let headerLink;
@@ -96,7 +97,7 @@
   live.setAttribute('aria-atomic', 'true');
   document.body.append(live);
   const queue = [];
-  let toast, toastTimer, toastDeadline = 0, remaining = 8000, hovered = false, closing = false;
+  let toast, toastTimer, toastDeadline = 0, remaining = 8000, hovered = false, closing = false, draggingToast = false;
   function introduce() {
     if (state.introduced) return;
     state.introduced = true;
@@ -108,26 +109,104 @@
     toastDeadline = 0;
   }
   function resumeToast() {
-    if (!toast || closing || hovered || toast.contains(document.activeElement) || document.hidden) return;
+    if (!toast || closing || draggingToast || hovered || toast.contains(document.activeElement) || document.hidden) return;
     clearTimeout(toastTimer);
     toastDeadline = performance.now() + remaining;
     toastTimer = setTimeout(dismissToast, remaining);
   }
-  function dismissToast() {
+  function dismissToast(swipe) {
     if (!toast || closing) return;
-    pauseToast(); closing = true;
+    pauseToast(); closing = true; cancelToastDrag();
     const current = toast;
     const done = () => {
       if (toast !== current) return;
       const wasFocused = current.contains(document.activeElement);
+      cancelToastDrag = () => {};
       current.remove(); toast = null; closing = hovered = false;
       introduce();
       if (wasFocused) headerLink?.focus({ preventScroll: true });
       live.textContent = '';
       showNext();
     };
-    const motion = animate(current, [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: mobile.matches ? 'translateY(-16px) scale(.98)' : 'translateX(24px) scale(.98)' }], { duration: 400, easing: 'cubic-bezier(.4,0,.6,1)', fill: 'forwards' });
+    const computed = getComputedStyle(current);
+    const from = { opacity: computed.opacity, transform: computed.transform };
+    const destination = swipe
+      ? `translate(${swipe.x}px, ${swipe.y}px) scale(.98)`
+      : mobile.matches ? 'translateY(-16px) scale(.98)' : 'translateX(24px) scale(.98)';
+    current.style.transform = destination; current.style.opacity = '0';
+    const motion = animate(current, [from, { opacity: 0, transform: destination }], { duration: swipe ? 300 : 400, easing: swipe ? 'cubic-bezier(.2,.7,.2,1)' : 'cubic-bezier(.4,0,.6,1)', fill: 'forwards' });
     if (motion) motion.finished.then(done, done); else done();
+  }
+  function enableSwipe(node) {
+    let drag = null, suppressClick = false;
+    function release() {
+      const previous = drag;
+      drag = null;
+      draggingToast = false;
+      node.classList.remove('is-dragging');
+      if (previous && node.hasPointerCapture(previous.id)) node.releasePointerCapture(previous.id);
+      return previous;
+    }
+    function restore(smooth = false) {
+      if (!drag) return;
+      const computed = getComputedStyle(node);
+      const from = { transform: computed.transform, opacity: computed.opacity };
+      suppressClick ||= drag.moved;
+      release();
+      if (closing) return;
+      node.style.transform = ''; node.style.opacity = '';
+      if (smooth) animate(node, [from, { transform: 'none', opacity: 1 }], { duration: 320, easing: 'cubic-bezier(.22,.8,.25,1)' });
+      resumeToast();
+    }
+    cancelToastDrag = () => restore();
+    node.addEventListener('dragstart', event => event.preventDefault());
+    node.querySelectorAll('img').forEach(img => { img.draggable = false; });
+    node.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0 || closing || drag) return;
+      event.preventDefault(); // Keep pointer drags from leaving keyboard focus on the link.
+      pauseToast(); suppressClick = false; draggingToast = true;
+      const computed = getComputedStyle(node);
+      const transform = computed.transform, opacity = Number(computed.opacity);
+      node.getAnimations().forEach(animation => animation.cancel());
+      node.style.transform = transform; node.style.opacity = String(opacity);
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, dx: 0, dy: 0, vx: 0, vy: 0, time: event.timeStamp, moved: false, transform: transform === 'none' ? '' : transform, opacity };
+      node.setPointerCapture(event.pointerId);
+    });
+    node.addEventListener('pointermove', event => {
+      if (!drag || drag.id !== event.pointerId) return;
+      const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
+      const dt = Math.max(1, event.timeStamp - drag.time);
+      drag.vx = (dx - drag.dx) / dt; drag.vy = (dy - drag.dy) / dt;
+      drag.dx = dx; drag.dy = dy; drag.time = event.timeStamp;
+      drag.moved ||= Math.hypot(dx, dy) > 8;
+      if (!drag.moved) return;
+      node.classList.add('is-dragging');
+      node.style.transform = `translate(${dx}px, ${dy}px) ${drag.transform}`;
+      node.style.opacity = String(drag.opacity * Math.max(.35, 1 - Math.hypot(dx, dy) / (node.offsetWidth * 1.2)));
+    });
+    node.addEventListener('pointerup', event => {
+      if (!drag || drag.id !== event.pointerId) return;
+      const horizontal = Math.abs(drag.dx) >= Math.abs(drag.dy);
+      const distance = horizontal ? drag.dx : drag.dy;
+      const speed = event.timeStamp - drag.time < 100 ? Math.abs(horizontal ? drag.vx : drag.vy) : 0;
+      const threshold = horizontal ? Math.max(48, node.offsetWidth * .22) : Math.max(40, node.offsetHeight * .45);
+      if (drag.moved && (Math.abs(distance) >= threshold || (Math.abs(distance) > 24 && speed > .55))) {
+        suppressClick = true;
+        const box = node.getBoundingClientRect(), sign = Math.sign(distance);
+        const x = horizontal ? drag.dx + sign * (sign > 0 ? innerWidth - box.left + 24 : box.right + 24) : drag.dx;
+        const y = horizontal ? drag.dy : drag.dy + sign * (sign > 0 ? innerHeight - box.top + 24 : box.bottom + 24);
+        release(); dismissToast({ x, y });
+      } else restore(drag.moved);
+    });
+    node.addEventListener('pointercancel', () => restore(true));
+    node.addEventListener('lostpointercapture', () => restore(true));
+    node.addEventListener('click', event => {
+      if (closing || (suppressClick && event.detail > 0)) {
+        suppressClick = false;
+        event.preventDefault(); event.stopImmediatePropagation(); return;
+      }
+      state.introduced = true; save();
+    });
   }
   function showNext() {
     if (toast || !queue.length || document.hidden) return;
@@ -142,7 +221,7 @@
     document.body.append(toast);
     live.textContent = `Трофей получен! ${trophy.title}. ${ranks[trophy.rank]}.`;
     remaining = 8000;
-    toast.addEventListener('click', () => { state.introduced = true; save(); });
+    enableSwipe(toast);
     toast.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') { hovered = true; pauseToast(); } });
     toast.addEventListener('pointerleave', () => { hovered = false; resumeToast(); });
     toast.addEventListener('focusin', pauseToast);
@@ -241,7 +320,9 @@
     if (document.hidden) { pauseToast(); stopMotions(); }
     else { showNext(); resumeToast(); }
   });
-  window.addEventListener('pagehide', () => { pauseToast(); stopMotions(); });
+  window.addEventListener('pagehide', () => { stopMotions(); pauseToast(); });
+  window.addEventListener('blur', () => cancelToastDrag());
+  window.addEventListener('resize', () => cancelToastDrag());
   window.addEventListener('pageshow', () => { merge(read()); showLink(); renderCollection(); showNext(); resumeToast(); });
   reduced.addEventListener('change', stopMotions);
   mobile.addEventListener('change', stopMotions);
