@@ -117,6 +117,7 @@
   reduced.addEventListener('change',clear);
   window.addEventListener('resize',clear);
   window.addEventListener('pagehide',clear);
+  window.addEventListener('hashchange',clear);
   window.addEventListener('blur',clear);
   document.addEventListener('visibilitychange',()=>{if(document.hidden)clear();});
 })();
