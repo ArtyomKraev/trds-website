@@ -26,9 +26,14 @@
   --color-surface-pressed: #4b4c4d;
   --color-content-primary: #ffffff;
   --color-content-secondary: #c8c9ca;
+  --color-content-tertiary: #969798;
+  --color-content-inverse: #1d1e1f;
+  --color-border-subtle: #292a2b;
   --color-content-disabled: #606162;
   --color-content-accent: #bbd7ff;
   --color-border-default: #393a3b;
+  --color-page-divider: #303030;
+  --color-footer-text: #a5a5a5;
   --color-accent-fill: #0a69da;
   --color-accent-hover: #0054b5;
   --color-accent-pressed: #00397f;
@@ -47,6 +52,8 @@
 
 body {
   position: relative;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   min-width: 20rem;
   min-height: 100svh;
@@ -93,7 +100,7 @@ a {
   pointer-events: none;
 }
 
-.site-header, .main {
+.site-header, .main, .site-footer {
   position: relative;
   z-index: 1;
 }
@@ -118,8 +125,18 @@ a {
 /* 4. Шапка и логотип: актуальная ручная правка из Paper. */
 .site-header {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   height: 6rem;
+}
+
+/* Линия не смещает логотип и совпадает с шириной контента. */
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: var(--color-page-divider);
 }
 
 .logo {
@@ -138,7 +155,8 @@ a {
 
 /* 5. Вводный блок и два варианта кнопок-ссылок. */
 .main {
-  padding-block: 4rem 7.125rem;
+  flex: 1;
+  padding-block: 5rem 3rem;
 }
 .hero {
   display: flex;
@@ -213,181 +231,25 @@ h2 {
   background: var(--color-surface-pressed);
 }
 
-/* 6. Карточки. Текст в потоке; иллюстрации прижаты к нижнему краю. */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
-  margin-top: 3.5rem;
-}
-
-.card {
-  position: relative;
-  min-width: 0;
-  min-height: 22.5rem;
-  padding: 2rem;
-  overflow: hidden;
-  border-radius: var(--radius-card);
-  background: linear-gradient(145deg in oklab, var(--color-surface-default) 30%, var(--color-surface-page));
-  background-origin: border-box;
-}
-
-.card__content {
-
-  position: relative;
-
-  z-index: 1;
-
-}
-.card p {
-  margin-top: .75rem;
-  color: var(--color-content-secondary);
-}
-
-/* Фиксированная сцена из макета центрируется и обрезается краями карточки. */
-.card__art {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 387px;
-  height: 218px;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.foundations-art__type {
-  position: absolute;
-  top: 23px;
-  left: 146px;
-  color: var(--color-content-secondary);
-  font-family: var(--font-heading);
-  font-size: 100px;
-  font-weight: 500;
-  line-height: 116px;
-  letter-spacing: -.055em;
-}
-
-.palette {
-  position: absolute;
-  top: 163px;
-  left: 81px;
+/* Футер у нижнего края окна; на длинной странице следует за контентом. */
+.site-footer {
   display: flex;
-  width: 225px;
-  height: 42px;
-  overflow: hidden;
-  border: 1px solid var(--color-border-default);
-  border-radius: 8px;
-}
-
-.palette__swatch {
-
-  flex: 0 0 45px;
-
-}
-.palette__swatch--raised {
-  background: var(--color-surface-raised);
-}
-.palette__swatch--muted {
-  background: var(--color-content-disabled);
-}
-.palette__swatch--inverse {
-  background: var(--color-surface-inverse);
-}
-.palette__swatch--accent {
-  background: var(--color-accent-fill);
-}
-.palette__swatch--light {
-  background: var(--color-content-accent);
-}
-
-.demo-panel {
-  position: absolute;
-  top: 62px;
-  left: 44px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 298px;
-  height: 178px;
-  padding: 24px;
-  border: 1px solid var(--color-content-disabled);
-  border-radius: 12px;
-  background: linear-gradient(135deg in oklab, var(--color-surface-raised), var(--color-surface-page));
-  background-origin: border-box;
-}
-
-.demo-panel__row {
-
-  display: flex;
-
-  align-items: center;
-
+  flex-shrink: 0;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.5rem 4rem;
+  border-top: 1px solid var(--color-page-divider);
+  color: var(--color-footer-text);
+  font-size: .875rem;
+  line-height: 1.125rem;
+}
 
-  min-height: 32px;
-
-}
-.demo-panel__checks {
+.site-footer__group {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-}
-.demo-checkbox {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--color-content-disabled);
-  border-radius: 6px;
-}
-.demo-toggle {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 52px;
-  height: 30px;
-  padding: 3px;
-  background: var(--color-accent-fill);
-  border-radius: var(--radius-pill);
-}
-.demo-toggle span {
-  width: 24px;
-  height: 24px;
-  background: var(--color-surface-inverse);
-  border-radius: 50%;
-}
-.demo-slider {
-  display: flex;
-  align-items: center;
-  width: 248px;
-  min-height: 16px;
-}
-.demo-slider__fill {
-  width: 141px;
-  height: 3px;
-  background: var(--color-content-accent);
-}
-.demo-slider__thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-surface-inverse);
-}
-.demo-slider__track {
-  flex: 1;
-  height: 3px;
-  background: var(--color-border-default);
-}
-.demo-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 248px;
-  min-height: 40px;
-  border: 1px solid var(--color-border-default);
-  border-radius: var(--radius-pill);
-  background: var(--color-surface-raised);
-  color: var(--color-content-secondary);
-  font-size: 14px;
-  line-height: 20px;
+  gap: 1.5rem;
 }
 
 /* 7. Hover только для устройств с мышью; клавиатурный фокус работает везде. */
@@ -406,13 +268,6 @@ h2 {
     flex-direction: column;
     align-items: flex-start;
   }
-  .cards {
-    grid-template-columns: 1fr;
-    margin-top: 4rem;
-  }
-  .card {
-    min-height: 22.5rem;
-  }
 }
 
 @media (max-width: 40rem) {
@@ -425,6 +280,9 @@ h2 {
   .main {
     padding-block: 2.5rem 3rem;
   }
+  .site-footer {
+    padding-bottom: 3rem;
+  }
   h1 {
     font-size: 1.75rem;
     line-height: 1.2;
@@ -435,12 +293,6 @@ h2 {
   }
   .hero {
     gap: 2rem;
-  }
-  .card {
-    padding: 1.5rem;
-  }
-  .card p br {
-    display: none;
   }
 }
 

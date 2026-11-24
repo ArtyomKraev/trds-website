@@ -1,0 +1,123 @@
+/* Неподвижная ссылка держит сетку и область наведения. Наклоняется только поверхность. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 3.5rem;
+}
+
+.card {
+  position: relative;
+  min-width: 0;
+  border-radius: var(--radius-card);
+  perspective: 800px;
+}
+
+.card__surface {
+  position: relative;
+  height: 100%;
+  min-height: 22.5rem;
+  padding: 2rem;
+  overflow: hidden;
+  border-radius: inherit;
+  background: linear-gradient(145deg in oklab, var(--color-surface-default) 30%, var(--color-surface-page));
+  transform: translateZ(var(--card-depth, 0px)) rotateX(var(--card-rx, 0deg)) rotateY(var(--card-ry, 0deg));
+  pointer-events: none;
+}
+
+.card__content { position: relative; z-index: 1; }
+.card p { margin-top: .75rem; color: var(--color-content-secondary); }
+
+/* Размеры и координаты сцены — из Paper. На узком экране обрезаются только края. */
+.card__art {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: block;
+  width: 387px;
+  height: 208px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+/* SVG встроены в HTML, поэтому используют те же токены, что и весь сайт. */
+.art-stroke { stroke: var(--color-border-default); }
+.art-stroke-subtle { stroke: var(--color-border-subtle); }
+.art-stroke-tertiary { stroke: var(--color-content-tertiary); }
+.art-fill-page { fill: var(--color-surface-page); }
+.art-fill-raised { fill: var(--color-surface-raised); }
+.art-fill-inverse { fill: var(--color-surface-inverse); }
+.art-fill-border { fill: var(--color-border-default); }
+.art-fill-accent { fill: var(--color-accent-fill); }
+.art-fill-accent-light { fill: var(--color-content-accent); }
+.art-pseudotext { color: var(--color-content-inverse); opacity: .35; }
+.art-pulse { color: var(--color-content-inverse); opacity: 0; }
+.art-signal { opacity: 0; }
+.art-signal__trace {
+  stroke: var(--color-content-accent);
+  stroke-dasharray: 9 91;
+  stroke-linecap: round;
+}
+
+/* Каждая иллюстрация реагирует по-своему; спокойное состояние точно повторяет макет. */
+@media (prefers-reduced-motion: no-preference) {
+  .art-orbit, .art-document, .art-satellite, .art-foundation-rings,
+  .art-color, .art-contour, .art-control, .art-document__lines path {
+    transition: transform 650ms cubic-bezier(.2, .7, .2, 1), stroke 400ms ease;
+  }
+  .art-orbit { transform-origin: 194px 109px; }
+  .art-document { transform-origin: 194px 102px; }
+  .art-foundation-rings { transform-origin: 182px 112px; }
+  .art-color--blue { transform-origin: 218px 99px; }
+  .art-color--gray { transform-origin: 145px 99px; }
+  .art-contour, .art-control { transform-origin: 193px 98px; }
+  .art-document__lines path { transform-origin: 159px 100px; }
+  .art-document__lines path:nth-child(2) { transition-delay: 40ms; }
+  .art-document__lines path:nth-child(3) { transition-delay: 80ms; }
+  .art-document__lines path:nth-child(4) { transition-delay: 120ms; }
+  .art-document__lines path:nth-child(5) { transition-delay: 160ms; }
+  .art-pulse, .art-signal { transition: opacity 350ms ease; }
+
+  /* Клавиатура запускает ту же графику, но не наклон. */
+  .card:is(.is-hovered, :focus-visible) .art-orbit--wide { transform: rotate(8deg); }
+  .card:is(.is-hovered, :focus-visible) .art-orbit--tall { transform: rotate(-6deg); }
+  .card:is(.is-hovered, :focus-visible) .art-document { transform: translateY(-6px) rotate(-3deg); }
+  .card:is(.is-hovered, :focus-visible) .art-document__lines path { transform: scaleX(.82); stroke: var(--color-content-accent); }
+  .card:is(.is-hovered, :focus-visible) .art-satellite--blue { transform: translate(21px, -40px); }
+  .card:is(.is-hovered, :focus-visible) .art-satellite--light { transform: translate(13px, 29px); }
+  .card:is(.is-hovered, :focus-visible) .art-foundation-rings { transform: rotate(12deg); }
+  .card:is(.is-hovered, :focus-visible) .art-color--blue { transform: translate(-19px, 9px) scale(1.05); }
+  .card:is(.is-hovered, :focus-visible) .art-color--gray { transform: translate(14px, -8px); }
+  .card:is(.is-hovered, :focus-visible) .art-contour--outer { transform: scale(1.06); }
+  .card:is(.is-hovered, :focus-visible) .art-contour--inner { transform: scale(.94); }
+  .card:is(.is-hovered, :focus-visible) .art-control { transform: scale(.97); }
+  .card:is(.is-hovered, :focus-visible) .art-pulse,
+  .card:is(.is-hovered, :focus-visible) .art-signal { opacity: 1; }
+
+  /* Повторяющийся акцент лежит поверх исходной графики и мягко гаснет при уходе. */
+  .art-pulse rect { animation: pseudo-text-pulse 1.4s ease-in-out infinite paused; }
+  .art-pulse rect:nth-child(2) { animation-delay: 160ms; }
+  .art-pulse rect:nth-child(3) { animation-delay: 320ms; }
+  .art-signal__trace { animation: contour-signal 3s linear infinite paused; }
+  .card:is(.is-hovered, :focus-visible) .art-pulse rect,
+  .card:is(.is-hovered, :focus-visible) .art-signal__trace { animation-play-state: running; }
+
+  .cards.is-paused .card__art * { animation-play-state: paused; }
+}
+
+@keyframes pseudo-text-pulse {
+  0%, 100% { opacity: 0; }
+  45% { opacity: .45; }
+}
+@keyframes contour-signal { to { stroke-dashoffset: -100; } }
+
+@media (max-width: 68rem) {
+  .cards { grid-template-columns: 1fr; margin-top: 4rem; }
+}
+@media (max-width: 40rem) {
+  .card__surface { padding: 1.5rem; }
+  .card p br { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card__surface { transform: none; }
+}
