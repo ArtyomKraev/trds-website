@@ -19,9 +19,11 @@
   }
   function play(source) {
     clear();
-    if (reduced.matches || source.disabled) return;
+    if (source.disabled) return;
     const target = chips.find(chip => chip.dataset.chip === beats[source.dataset.chip]);
     if (!target || target.disabled) return;
+    window.TRDSTrophies?.record('chips', source.dataset.chip);
+    if (reduced.matches) return;
     const layer = document.createElement('div');
     layer.className = 'chip-scene';
     layer.setAttribute('aria-hidden', 'true');

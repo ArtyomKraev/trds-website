@@ -36,7 +36,9 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   const dropSelection = () => {
     stopSelectionFall();
     const items = choices.filter((input) => input.name === 'example-choice');
-    if (reducedMotion.matches || activeSelection !== 'item' || state.description !== 'single' || !items.length || !items.every((input) => input.type === 'checkbox' && input.checked)) return;
+    if (activeSelection !== 'item' || state.description !== 'single' || !items.length || !items.every((input) => input.type === 'checkbox' && input.checked)) return;
+    window.TRDSTrophies?.unlock('free');
+    if (reducedMotion.matches) return;
     const rows = items.map((input) => input.closest('.ds-choice'));
     const stage = preview.getBoundingClientRect();
     const bounds = rows.map((row) => row.getBoundingClientRect());
@@ -133,7 +135,9 @@ document.querySelectorAll('[data-component]').forEach((form) => {
   const previewHasFocus = () => preview.contains(document.activeElement) && document.activeElement.matches('input, textarea, .toggle-bell');
   const ringBell = () => {
     bellAnimation?.cancel();
-    if (!bell || reducedMotion.matches) return;
+    if (!bell) return;
+    window.TRDSTrophies?.unlock('bell');
+    if (reducedMotion.matches) return;
     bellAnimation = bell.querySelector('.toggle-bell__on').animate(
       [0, -16, 13, -9, 6, -3, 0].map((angle) => ({ transform: `rotate(${angle}deg)` })),
       { duration: 560, easing: 'ease-in-out' }
@@ -359,6 +363,7 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       remove.setAttribute('aria-label', `Убрать ${file.name}`);
       remove.append(form.querySelector('#remove-file-icon').content.cloneNode(true));
       remove.addEventListener('click', () => {
+        if (file.type.startsWith('image/')) window.TRDSTrophies?.unlock('snap');
         const reserved = parseFloat(getComputedStyle(list).paddingBottom) || 0;
         const rowHeight = row.offsetHeight;
         const space = rowHeight + parseFloat(getComputedStyle(list).rowGap);

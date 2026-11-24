@@ -68,9 +68,16 @@
       if (focus) (open ? card.querySelector('.modal-close') : launch).focus({ preventScroll: true });
     }
     launch.addEventListener('click', () => setOpen(true, true));
-    card.querySelector('.modal-close').addEventListener('click', () => setOpen(false, true));
-    cancel.addEventListener('click', () => setOpen(false, true));
+    card.querySelector('.modal-close').addEventListener('click', () => {
+      if (opened) window.TRDSTrophies?.record('modal', 'close');
+      setOpen(false, true);
+    });
+    cancel.addEventListener('click', () => {
+      if (opened) window.TRDSTrophies?.record('modal', 'cancel');
+      setOpen(false, true);
+    });
     card.querySelector('.modal-confirm').addEventListener('click', () => {
+      if (opened) window.TRDSTrophies?.record('modal', 'confirm');
       status.textContent = 'Проект перемещён';
       setOpen(false, true);
     });
@@ -173,9 +180,25 @@
     const trigger = stage.querySelector('.tooltip-trigger');
     const tooltip = stage.querySelector('.demo-tooltip');
     let hovered = false, focused = false, hideTimer, copyTimer, copyGeneration = 0;
+    let positionBurst = [], spin;
+    function spinAfterRapidChanges() {
+      const now = performance.now();
+      positionBurst = positionBurst.filter(time => now - time < 1600);
+      positionBurst.push(now);
+      if (positionBurst.length < 4) return;
+      positionBurst = [];
+      window.TRDSTrophies?.unlock('round');
+      if (reduced.matches) return;
+      const from = parseFloat(getComputedStyle(trigger).rotate) || 0;
+      spin?.cancel();
+      spin = trigger.animate([{ rotate: `${from}deg` }, { rotate: '375deg', offset: .75 }, { rotate: '356deg', offset: .9 }, { rotate: '360deg' }], { duration: 900, easing: 'cubic-bezier(.22,.8,.25,1)' });
+      const current = spin;
+      current.finished.then(() => { if (spin === current) { spin.cancel(); spin = null; } }, () => {});
+    }
     function layout() {
       const horizontal = ['left', 'right'].includes(settings.position);
-      const button = trigger.getBoundingClientRect();
+      // Rotation is decorative; layout uses the unrotated button dimensions.
+      const button = { width: trigger.offsetWidth, height: trigger.offsetHeight };
       const width = stage.clientWidth, height = stage.clientHeight;
       tooltip.style.maxWidth = `${Math.max(64, horizontal ? width - button.width - 8 : width)}px`;
       const tip = tooltip.getBoundingClientRect();
@@ -230,6 +253,7 @@
       copyTimer = setTimeout(() => { tooltip.textContent = 'Скопировать ссылку'; layout(); if (!hovered && !focused) show(false); }, 1800);
     });
     function cleanup() {
+      spin?.cancel(); spin = null; positionBurst = [];
       copyGeneration++;
       clearTimeout(hideTimer); clearTimeout(copyTimer);
       tooltip.textContent = 'Скопировать ссылку';
@@ -237,7 +261,7 @@
       layout();
     }
     return {
-      render() { layout(); show(settings.visibility === 'show'); },
+      render(name) { layout(); show(settings.visibility === 'show'); if (name === 'position') spinAfterRapidChanges(); },
       reset() { cleanup(); layout(); show(true, false); },
       layout,
       cleanup,

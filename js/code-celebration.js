@@ -32,6 +32,7 @@
     preview.append(canvas);
     const context = canvas.getContext('2d');
     if (!context) { canvas.remove(); canvas = null; return; }
+    window.TRDSTrophies?.unlock('party');
     context.scale(ratio, ratio);
     const origin = {x:code.left-bounds.left+code.width/2, y:code.top-bounds.top+24};
     const colors = ['#bbd7ff','#56a0ff','#a9a9ff','#eca1ff','#ffdfa5','#9ae2b3','#ffffff'];
@@ -94,7 +95,8 @@
     if (matched) return;
     matched = true;
     clear();
-    if (panel.hidden || reduced.matches || inputs.some(input => input.disabled)) return;
+    if (panel.hidden || inputs.some(input => input.disabled)) return;
+    if (reduced.matches) { window.TRDSTrophies?.unlock('party'); return; }
     const ownGeneration = generation;
     // Wait for all arriving digits, including a full-code paste/autofill.
     const arrivals = [...panel.querySelectorAll('.ds-code__glyph')].flatMap(glyph => glyph.getAnimations()).filter(animation => animation.playState === 'running');
