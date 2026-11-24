@@ -228,11 +228,9 @@ h2 {
   min-height: 22.5rem;
   padding: 2rem;
   overflow: hidden;
-  border: 1px solid var(--color-border-default);
   border-radius: var(--radius-card);
   background: linear-gradient(145deg in oklab, var(--color-surface-default) 30%, var(--color-surface-page));
   background-origin: border-box;
-  transition: border-color 150ms ease;
 }
 
 .card__content {
@@ -401,9 +399,6 @@ h2 {
   .button--secondary:hover {
     background: var(--color-surface-hover);
   }
-  .card:hover {
-    border-color: var(--color-content-disabled);
-  }
 }
 
 /* 8. Адаптив: три колонки сменяются одной до того, как текст станет тесным. */
@@ -447,7 +442,7 @@ h2 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button, .card {
+  .button {
     transition: none;
   }
 }
