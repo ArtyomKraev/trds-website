@@ -108,10 +108,93 @@
     indicator.style.transform = `translateX(${bounds.left - track.getBoundingClientRect().left}px)`;
   };
 
-  const closeMenu = (restoreFocus = false) => {
-    moreMenu.hidden = true;
+  let menuOpen = false;
+  let menuMotion;
+  const itemMotions = [];
+  let labelMotion;
+  let widthMotion;
+  const menuButtons = [...moreMenu.querySelectorAll('button')];
+  const highlight = document.createElement('div');
+  highlight.className = 'icon-menu-highlight';
+  highlight.setAttribute('aria-hidden', 'true');
+  moreMenu.prepend(highlight);
+  menuButtons.forEach((button) => {
+    const label = document.createElement('span');
+    label.textContent = button.textContent;
+    const check = document.createElement('span');
+    check.className = 'icon-category-check';
+    check.setAttribute('aria-hidden', 'true');
+    check.innerHTML = svgMarkup(byId.get('81:1387'), 'category-check', 16);
+    button.replaceChildren(label, check);
+  });
+  const highlightItem = (button) => {
+    highlight.style.opacity = button ? '1' : '0';
+    if (!button) return;
+    highlight.style.height = `${button.offsetHeight}px`;
+    highlight.style.transform = `translateY(${button.offsetTop}px)`;
+  };
+  menuButtons.forEach((button) => {
+    button.addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') highlightItem(button); });
+    button.addEventListener('focus', () => highlightItem(button));
+  });
+  moreMenu.addEventListener('pointerleave', () => highlightItem(null));
+
+  const stopMenuMotion = () => {
+    menuMotion?.cancel();
+    itemMotions.splice(0).forEach((animation) => animation.cancel());
+  };
+  const closeMenu = (restoreFocus = false, immediate = false) => {
+    if (!menuOpen && !immediate) return;
+    menuOpen = false;
     more.setAttribute('aria-expanded', 'false');
-    if (restoreFocus) more.focus();
+    if (restoreFocus || moreMenu.contains(document.activeElement)) more.focus();
+    const current = getComputedStyle(moreMenu);
+    const start = { transform: current.transform, opacity: current.opacity };
+    stopMenuMotion();
+    moreMenu.inert = true;
+    if (reducedMotion.matches || immediate) { moreMenu.hidden = true; return; }
+    const animation = moreMenu.animate([start, { transform: 'translateY(-8px) scale(.92, .86)', opacity: 0 }], {
+      duration: 180, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards',
+    });
+    menuMotion = animation;
+    animation.finished.then(() => {
+      if (!menuOpen && menuMotion === animation) { moreMenu.hidden = true; animation.cancel(); }
+    }, () => {});
+  };
+  const openMenu = () => {
+    const wasHidden = moreMenu.hidden;
+    const current = new DOMMatrixReadOnly(getComputedStyle(moreMenu).transform);
+    const opacity = wasHidden ? 0 : Number(getComputedStyle(moreMenu).opacity);
+    stopMenuMotion();
+    menuOpen = true;
+    moreMenu.hidden = false;
+    moreMenu.inert = false;
+    more.setAttribute('aria-expanded', 'true');
+    const bounds = more.getBoundingClientRect();
+    const parent = filters.getBoundingClientRect();
+    const left = Math.max(0, Math.min(bounds.left - parent.left, parent.width - moreMenu.offsetWidth));
+    moreMenu.style.left = `${left}px`;
+    moreMenu.style.maxHeight = `${Math.max(132, Math.min(352, window.innerHeight - parent.bottom - 24))}px`;
+    moreMenu.style.setProperty('--picker-origin', `${Math.max(16, Math.min(moreMenu.offsetWidth - 16, bounds.left + bounds.width / 2 - parent.left - left))}px`);
+    highlightItem(null);
+    const activeItem = moreMenu.querySelector('[aria-pressed="true"]');
+    if (activeItem) moreMenu.scrollTop = activeItem.offsetTop + activeItem.offsetHeight / 2 - moreMenu.clientHeight / 2;
+    if (reducedMotion.matches) return;
+    // Затухающая пружина: раскрытие из кнопки, небольшой перелёт и мягкая остановка.
+    const start = wasHidden ? { x: .86, y: .72, top: -10 } : { x: current.a, y: current.d, top: current.f };
+    const frames = Array.from({ length: 41 }, (_, index) => {
+      const time = index / 40 * .6;
+      const progress = index === 40 ? 1 : 1 - Math.exp(-10 * time) * (Math.cos(21.34 * time) + 10 / 21.34 * Math.sin(21.34 * time));
+      return { transform: `translateY(${start.top * (1 - progress)}px) scale(${start.x + (1 - start.x) * progress}, ${start.y + (1 - start.y) * progress})`, opacity: opacity + (1 - opacity) * Math.min(1, time / .16) };
+    });
+    menuMotion = moreMenu.animate(frames, { duration: 600, easing: 'linear' });
+    let visibleIndex = 0;
+    menuButtons.forEach((button) => {
+      if (button.offsetTop + button.offsetHeight < moreMenu.scrollTop || button.offsetTop > moreMenu.scrollTop + moreMenu.clientHeight) return;
+      itemMotions.push(button.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'translateY(0)' }], {
+        duration: 320, delay: Math.min(visibleIndex++, 6) * 28 + 25, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards',
+      }));
+    });
   };
 
   const render = () => {
@@ -150,12 +233,24 @@
   };
 
   const chooseCategory = (value) => {
+    const previousWidth = more.getBoundingClientRect().width;
+    const previousLabel = more.querySelector('span').textContent;
+    widthMotion?.cancel();
+    labelMotion?.cancel();
     category = value;
     pageIndex = 0;
     categoryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
     const extra = [...moreMenu.querySelectorAll('[data-category]')].some((button) => button.dataset.category === category);
     more.toggleAttribute('data-active', extra);
     more.querySelector('span').textContent = extra ? labels[category] : 'Ещё';
+    if (!reducedMotion.matches && previousLabel !== more.querySelector('span').textContent) {
+      widthMotion = more.animate([{ width: `${previousWidth}px` }, { width: `${more.getBoundingClientRect().width}px` }], {
+        duration: 300, easing: 'cubic-bezier(.33,.55,.2,1)',
+      });
+      labelMotion = more.querySelector('span').animate([{ opacity: 0, transform: 'translateY(7px)' }, { opacity: 1, transform: 'translateY(0)' }], {
+        duration: 380, easing: 'cubic-bezier(.22,1.4,.36,1)',
+      });
+    }
     closeMenu();
     moveIndicator();
     render();
@@ -177,21 +272,12 @@
     chooseCategory(button.dataset.category);
     if (fromMenu) more.focus();
   }));
-  more.addEventListener('click', () => {
-    const open = moreMenu.hidden;
-    moreMenu.hidden = !open;
-    more.setAttribute('aria-expanded', String(open));
-    if (open) {
-      const bounds = more.getBoundingClientRect();
-      const parent = filters.getBoundingClientRect();
-      moreMenu.style.left = `${Math.max(0, Math.min(bounds.left - parent.left, parent.width - moreMenu.offsetWidth))}px`;
-    }
-  });
+  more.addEventListener('click', () => { if (menuOpen) closeMenu(); else openMenu(); });
   more.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (moreMenu.hidden) more.click();
-      moreMenu.querySelector('[aria-pressed="true"], button').focus();
+      if (!menuOpen) openMenu();
+      (moreMenu.querySelector('[aria-pressed="true"]') || menuButtons[0]).focus();
     }
   });
   moreMenu.addEventListener('keydown', (event) => {
@@ -205,10 +291,10 @@
     if (nextIndex !== undefined) { event.preventDefault(); buttons[nextIndex].focus(); }
   });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && !moreMenu.hidden) { event.preventDefault(); closeMenu(true); }
+    if (event.key === 'Escape' && menuOpen) { event.preventDefault(); closeMenu(true); }
   });
   document.addEventListener('pointerdown', (event) => {
-    if (!moreMenu.hidden && !moreMenu.contains(event.target) && !more.contains(event.target)) closeMenu();
+    if (menuOpen && !moreMenu.contains(event.target) && !more.contains(event.target)) closeMenu();
   });
   search.addEventListener('input', () => { pageIndex = 0; render(); });
   document.getElementById('icon-reset').addEventListener('click', () => {
@@ -283,5 +369,12 @@
   const observer = new ResizeObserver(moveIndicator);
   observer.observe(track);
   [...track.querySelectorAll('button')].forEach((button) => observer.observe(button));
-  window.addEventListener('resize', () => closeMenu());
+  window.addEventListener('resize', () => closeMenu(false, true));
+  reducedMotion.addEventListener('change', () => {
+    if (!reducedMotion.matches) return;
+    stopMenuMotion();
+    labelMotion?.cancel();
+    widthMotion?.cancel();
+    moreMenu.hidden = !menuOpen;
+  });
 })();
