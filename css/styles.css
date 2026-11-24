@@ -122,9 +122,30 @@ a {
   padding-block: 4rem 7.125rem;
 }
 .hero {
+  position: relative;
+}
+
+.hero__content {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  width: calc(100% - 27rem);
+}
+
+/* Сцена справа не меняет вертикальное положение карточек. */
+.hero__visual {
+  position: absolute;
+  top: -4rem;
+  right: -1rem;
+  width: 26rem;
+  height: 19rem;
+  pointer-events: none;
+}
+
+.brick-glow {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .hero__intro {
   display: flex;
@@ -389,6 +410,20 @@ h2 {
 
 /* 8. Адаптив: три колонки сменяются одной до того, как текст станет тесным. */
 @media (max-width: 68rem) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .hero__content {
+    width: 100%;
+  }
+  .hero__visual {
+    position: static;
+    width: min(100%, 26rem);
+    height: 18rem;
+    align-self: center;
+  }
   .cards {
     grid-template-columns: 1fr;
     margin-top: 4rem;
@@ -416,7 +451,7 @@ h2 {
     font-size: 1rem;
     line-height: 1.5;
   }
-  .hero {
+  .hero__content {
     gap: 2rem;
   }
   .card {

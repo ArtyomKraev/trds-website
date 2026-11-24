@@ -8,6 +8,7 @@
     <title>TRDS — единая среда для дизайна и разработки</title>
     <link rel="icon" href="assets/images/logo-mark.svg" type="image/svg+xml">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/brick-glow.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -22,21 +23,27 @@
 
     <main class="main container" id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero__intro">
-          <h1 id="hero-title">Единая среда для дизайна и разработки</h1>
-          <p class="hero__description">Принципы, компоненты и инструменты для создания интерфейсов</p>
+        <div class="hero__content">
+          <div class="hero__intro">
+            <h1 id="hero-title">Единая среда для дизайна и разработки</h1>
+            <p class="hero__description">Принципы, компоненты и инструменты для создания интерфейсов</p>
+          </div>
+          <!-- Это ссылки, оформленные как кнопки: переходы работают без JavaScript. -->
+          <nav class="hero__actions" aria-label="Ресурсы TRDS">
+            <a class="button button--accent" href="https://github.com/ArtyomKraev/trds-agent-ready">
+              <img src="assets/images/github.svg" width="20" height="20" alt="">
+              <span>Github</span>
+            </a>
+            <a class="button button--secondary" href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx">
+              <img src="assets/images/figma.svg" width="20" height="20" alt="">
+              <span>Figma</span>
+            </a>
+          </nav>
         </div>
-        <!-- Это ссылки, оформленные как кнопки: переходы работают без JavaScript. -->
-        <nav class="hero__actions" aria-label="Ресурсы TRDS">
-          <a class="button button--accent" href="https://github.com/ArtyomKraev/trds-agent-ready">
-            <img src="assets/images/github.svg" width="20" height="20" alt="">
-            <span>Github</span>
-          </a>
-          <a class="button button--secondary" href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx">
-            <img src="assets/images/figma.svg" width="20" height="20" alt="">
-            <span>Figma</span>
-          </a>
-        </nav>
+        <!-- Декоративная сцена: геометрия и анимация находятся в js/brick-glow.js. -->
+        <div class="hero__visual" aria-hidden="true">
+          <canvas class="brick-glow" width="800" height="600"></canvas>
+        </div>
       </section>
 
       <!-- До переноса внутренних страниц карточки ведут в исходную документацию. -->
