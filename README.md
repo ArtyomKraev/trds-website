@@ -57,15 +57,13 @@ assets/fonts/       — локальные Roboto и Roboto Flex, их лице�
 
 Внутренние страницы сайта ещё не перенесены. Пока карточки открывают соответствующие материалы в [репозитории дизайн-системы](https://github.com/ArtyomKraev/trds-agent-ready). При добавлении страниц замените их `href` на относительные адреса. Псевдокнопка со штрихами — декоративная часть SVG, а не отдельный интерактивный элемент.
 
-## GitHub Pages — включить позже
+## GitHub Pages
 
-Исходники уже готовы для публикации из корня репозитория. Все локальные пути относительные, поэтому страница работает и под `/trds-website/`.
+Сайт опубликован: [artyomkraev.github.io/trds-website](https://artyomkraev.github.io/trds-website/).
 
-1. Открыть репозиторий → **Settings → Pages**.
-2. Выбрать **Deploy from a branch**.
-3. Выбрать ветку `main` и папку `/(root)`, нажать **Save**.
+Pages настроен на **Deploy from a branch → main → /(root)**. После отправки изменений в `main` GitHub автоматически обновляет сайт; статус публикации виден во вкладке **Actions** репозитория. Локальные изменения появятся на сайте только после коммита и `git push`.
 
-После успешной публикации ожидаемый адрес: `https://artyomkraev.github.io/trds-website/`. Само создание репозитория не включает Pages.
+Все локальные пути относительные, поэтому страница работает и под `/trds-website/`.
 
 [Инструкция GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
