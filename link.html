@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#141617">
+    <meta name="description" content="Переход к странице, разделу или файлу">
+    <title>Link — TRDS</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="stylesheet" href="css/styles.css?v=20261124-entrance-direction">
+    <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
+    <script src="js/docs.js?v=20261124-motion" defer></script>
+    <link rel="stylesheet" href="css/components.css?v=20261124-transition-fixes">
+    <link rel="stylesheet" href="css/actions.css?v=20261124-actions">
+    <script src="js/actions.js?v=20261124-actions" defer></script>
+    <script src="js/preview-grid.js?v=20261124-preview-polish" defer></script>
+  </head>
+  <body class="docs-page components-page">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+    <header class="docs-header">
+      <a class="logo" href="./" aria-label="TRDS — главная">
+        <img src="assets/images/logo-mark.svg" width="28" height="28" alt="">
+        <span class="logo__text">trds</span>
+      </a>
+      <nav class="docs-header__links" aria-label="Ресурсы TRDS">
+        <a href="https://www.figma.com/design/TDEt0QXn8xkQihCoXz4Jzx"><span class="ds-link__label">Figma</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+        <a href="https://github.com/ArtyomKraev/trds-agent-ready"><span class="ds-link__label">GitHub</span> <svg class="external-icon" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.001 9L9.001 3M3.001 3H9.001V9"/></svg></a>
+      </nav>
+    </header>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="Разделы документации">
+        <!-- На узком экране всё меню можно свернуть. Без JS оно остаётся открытым. -->
+        <details class="docs-menu" open>
+          <summary class="docs-menu__toggle">Разделы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+          <nav class="docs-nav" aria-label="Документация TRDS">
+            <!-- Общее name оставляет открытым только один раздел, без JavaScript. -->
+            <details class="nav-group" name="docs-sections">
+              <summary>Документация <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="getting-started.html">Начало работы</a>
+                <a href="agents.html">Работа с агентами</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections">
+              <summary>Основы <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+              <a href="typography.html">Типографика</a>
+              <a href="colors.html">Цвета и темы</a>
+              <a href="grids.html">Сетки и структура</a>
+              <a href="spacing.html">Отступы и размеры</a>
+              <a href="icons.html">Иконки</a>
+              </div>
+            </details>
+            <details class="nav-group" name="docs-sections" open>
+              <summary>Компоненты <svg class="nav-chevron" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 4L6 8L10 12"/></svg></summary>
+              <div class="nav-group__links">
+                <a href="button.html">Button</a>
+                <a href="badge.html">Badge</a>
+                <a href="chip.html">Chip</a>
+                <a href="dropdown.html">Dropdown</a>
+                <a href="link.html" aria-current="page">Link</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/modal.md">Modal</a>
+                <a href="selection.html">Selection</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tab.md">Tab</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/table-row.md">Table</a>
+                <a href="text-field.html">Text Fields</a>
+                <a href="toggle.html">Toggle</a>
+                <a href="https://github.com/ArtyomKraev/trds-agent-ready/blob/main/design-system/components/tooltip.md">Tooltip</a>
+                <a href="upload-zone.html">Upload Zone</a>
+              </div>
+            </details>
+          </nav>
+        </details>
+      </aside>
+
+      <div class="docs-content">
+        <main class="docs-main components-main" id="main" tabindex="-1">
+          <section class="docs-intro" aria-labelledby="page-title">
+            <h1 id="page-title">Link</h1>
+            <p>Переход к странице, разделу или файлу</p>
+          </section>
+          <form class="playground action-playground" data-action-component="link" data-size="m" data-state="default" data-variant="accent" novalidate>
+            <div class="playground__header"><span>Пример</span><button class="play-reset" type="reset">Сбросить</button></div>
+            <div class="playground__body">
+              <div class="playground__preview"><a class="action-link action-target" href="https://github.com/ArtyomKraev/trds-agent-ready" target="_blank" rel="noopener"><span>Открыть проект</span><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.92 11.62C17.872 11.497 17.801 11.385 17.71 11.29L12.71 6.29C12.617 6.197 12.506 6.123 12.384 6.072C12.262 6.022 12.132 5.996 12 5.996C11.734 5.996 11.478 6.102 11.29 6.29C11.197 6.383 11.123 6.494 11.072 6.616C11.022 6.738 10.996 6.868 10.996 7C10.996 7.266 11.102 7.522 11.29 7.71L14.59 11H7C6.735 11 6.48 11.105 6.293 11.293C6.105 11.48 6 11.735 6 12C6 12.265 6.105 12.52 6.293 12.707C6.48 12.895 6.735 13 7 13H14.59L11.29 16.29C11.196 16.383 11.122 16.494 11.071 16.615C11.02 16.737 10.994 16.868 10.994 17C10.994 17.132 11.02 17.263 11.071 17.385C11.122 17.506 11.196 17.617 11.29 17.71C11.383 17.804 11.494 17.878 11.615 17.929C11.737 17.98 11.868 18.006 12 18.006C12.132 18.006 12.263 17.98 12.385 17.929C12.506 17.878 12.617 17.804 12.71 17.71L17.71 12.71C17.801 12.615 17.872 12.503 17.92 12.38C18.02 12.136 18.02 11.864 17.92 11.62Z" fill="currentColor" />
+            </svg></a></div>
+              <div class="playground__settings" aria-label="Настройки примера"><fieldset class="play-setting" data-setting="variant"><legend>Вид</legend><div class="play-options"><label class="play-option"><input type="radio" name="variant" value="accent" checked><span>Accent</span></label><label class="play-option"><input type="radio" name="variant" value="primary"><span>Primary</span></label></div></fieldset><fieldset class="play-setting" data-setting="size"><legend>Размер</legend><div class="play-options"><label class="play-option"><input type="radio" name="size" value="s"><span>S</span></label><label class="play-option"><input type="radio" name="size" value="m" checked><span>M</span></label><label class="play-option"><input type="radio" name="size" value="l"><span>L</span></label></div></fieldset><fieldset class="play-setting" data-setting="state"><legend>Состояние</legend><div class="play-options"><label class="play-option"><input type="radio" name="state" value="default" checked><span>Default</span></label><label class="play-option"><input type="radio" name="state" value="hover"><span>Hover</span></label><label class="play-option"><input type="radio" name="state" value="pressed"><span>Pressed</span></label><label class="play-option"><input type="radio" name="state" value="focused"><span>Focused</span></label><label class="play-option"><input type="radio" name="state" value="disabled"><span>Disabled</span></label></div></fieldset></div>
+            </div>
+            <span class="visually-hidden action-status" role="status" aria-live="polite"></span>
+          </form>
+        </main>
+
+        <footer class="docs-footer">
+          <div class="site-footer__group"><span>ИТМО</span><span>ТРДС</span></div>
+          <div class="site-footer__group"><span>Армаш Мира</span><span>Краев Артём</span></div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
