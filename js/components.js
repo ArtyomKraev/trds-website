@@ -57,6 +57,13 @@ document.querySelectorAll('[data-component]').forEach((form) => {
     input.parentElement.append(clip);
     return clip;
   });
+  const codeMotion = [
+    { transform: 'translateY(-36px) scale(.92)', offset: 0, easing: 'cubic-bezier(.18,.75,.25,1)' },
+    { transform: 'translateY(3px) scale(1.04)', offset: .65, easing: 'ease-out' },
+    { transform: 'translateY(-1px) scale(1)', offset: .84, easing: 'ease-in-out' },
+    { transform: 'none', offset: 1 }
+  ];
+  const codeMotionDuration = 400;
   const renderCode = (animate = false) => {
     let sequence = 0;
     digits.forEach((input, index) => {
@@ -73,10 +80,9 @@ document.querySelectorAll('[data-component]').forEach((form) => {
           outgoing.dataset.exiting = '';
           outgoing.textContent = previous;
           clip.append(outgoing);
-          const exit = outgoing.animate([
-            { transform: 'none' },
-            { transform: 'translateY(-36px) scale(.94)' }
-          ], { duration: 220, easing: 'cubic-bezier(.4,0,.7,.3)', fill: 'forwards' });
+          const exit = outgoing.animate(codeMotion, {
+            duration: codeMotionDuration, direction: 'reverse', fill: 'forwards'
+          });
           exit.onfinish = () => outgoing.remove();
         }
         return;
@@ -85,12 +91,9 @@ document.querySelectorAll('[data-component]').forEach((form) => {
       glyph.className = 'ds-code__glyph';
       glyph.textContent = input.value;
       clip.append(glyph);
-      if (animate && !reducedMotion.matches) glyph.animate([
-        { transform: 'translateY(-36px) scale(.92)', offset: 0, easing: 'cubic-bezier(.18,.75,.25,1)' },
-        { transform: 'translateY(3px) scale(1.04)', offset: .65, easing: 'ease-out' },
-        { transform: 'translateY(-1px) scale(1)', offset: .84, easing: 'ease-in-out' },
-        { transform: 'none', offset: 1 }
-      ], { duration: 400, delay: sequence++ * 35, fill: 'backwards' });
+      if (animate && !reducedMotion.matches) glyph.animate(codeMotion, {
+        duration: codeMotionDuration, delay: sequence++ * 35, fill: 'backwards'
+      });
     });
   };
   renderCode();
