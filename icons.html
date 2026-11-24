@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="css/styles.css?v=20261124-motion">
     <link rel="stylesheet" href="css/docs.css?v=20261124-motion">
     <script src="js/docs.js?v=20261124-motion" defer></script>
-    <link rel="stylesheet" href="css/icons.css?v=20261124-picker-motion">
+    <link rel="stylesheet" href="css/icons.css?v=20261124-ufo">
     <script src="assets/icons/catalog.js?v=20261124-icons" defer></script>
-    <script src="js/icons.js?v=20261124-picker-motion" defer></script>
+    <script src="js/icons.js?v=20261124-ufo" defer></script>
+    <script src="js/icons-empty.js?v=20261124-ufo" defer></script>
   </head>
   <body class="docs-page icons-page">
     <a class="skip-link" href="#main">Перейти к содержанию</a>
@@ -254,8 +255,36 @@
                 </a>
               </div>
               <div class="icon-empty" id="icon-empty" hidden>
-                <h2>Ничего не найдено</h2>
-                <p>Попробуйте другое название или выберите все категории.</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="320" height="236" viewBox="0 0 320 236" class="icon-empty__art" aria-hidden="true" focusable="false"><g data-parallax-layer="beam" data-x="5" data-y="3" data-angle="1" data-pivot="160 76"><path d="M131 76L93 210Q160 228 227 210L189 76Z" fill="var(--color-accent-surface)" />
+          </g><g data-parallax-layer="shadow" data-x="-2" data-y="1" data-angle="0" data-pivot="160 213"><ellipse cx="160" cy="213" rx="68" ry="11" fill="var(--color-surface-raised)" />
+          <ellipse cx="160" cy="213" rx="41" ry="6" fill="var(--color-accent-surface)" />
+          </g><g data-parallax-layer="character" data-x="10" data-y="7" data-angle="-3" data-pivot="160 147"><path d="M130 143L112 127L116 115M188 145L208 128L216 133" fill="none" stroke="var(--color-content-accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M150 173L142 190L133 186M174 173L181 189L192 182" fill="none" stroke="var(--color-content-accent)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          <g transform="rotate(10 160 147)">
+            <rect x="129" y="115" width="62" height="62" rx="16" fill="var(--color-accent-fill)" />
+            <ellipse cx="148" cy="139" rx="7" ry="10" fill="var(--color-content-primary)" />
+            <ellipse cx="171" cy="139" rx="7" ry="10" fill="var(--color-content-primary)" />
+            <circle cx="149" cy="136" r="3" fill="var(--color-surface-page)" />
+            <circle cx="172" cy="136" r="3" fill="var(--color-surface-page)" />
+            <ellipse cx="161" cy="159" rx="5" ry="6" fill="var(--color-accent-surface)" />
+          </g>
+          </g><g data-parallax-layer="saucer" data-x="16" data-y="10" data-angle="4" data-pivot="160 67"><g transform="rotate(-8 160 67)">
+            <path d="M124 63C124 12 196 12 196 63Z" fill="var(--color-content-accent)" />
+            <path d="M147 58C138 28 178 25 178 58Z" fill="var(--color-decorative-orange-content)" />
+            <ellipse cx="153" cy="45" rx="3" ry="5" fill="var(--color-surface-page)" />
+            <ellipse cx="167" cy="45" rx="3" ry="5" fill="var(--color-surface-page)" />
+            <ellipse cx="160" cy="67" rx="72" ry="19" fill="var(--color-accent-fill)" />
+            <path d="M90 71Q159 98 230 71Q212 96 160 97Q108 96 90 71Z" fill="var(--color-content-accent)" />
+            <ellipse cx="160" cy="91" rx="28" ry="6" fill="var(--color-accent-fill)" />
+            <path d="M114 66L121 68M156 70H164M199 68L206 66" fill="none" stroke="var(--color-decorative-orange-content)" stroke-width="5" stroke-linecap="round" />
+          </g>
+          </g><g data-parallax-layer="trails" data-x="7" data-y="5" data-angle="0" data-pivot="160 160"><path d="M105 164V177M216 158V171" fill="none" stroke="var(--color-content-accent)" stroke-width="3" stroke-linecap="round" />
+          </g><g data-parallax-layer="stars" data-x="-5" data-y="-3" data-angle="0" data-pivot="160 118"><path d="M63 71V83M57 77H69M250 111V119M246 115H254" fill="none" stroke="var(--color-content-tertiary)" stroke-width="2" stroke-linecap="round" />
+        </g></svg>
+                <div class="icon-empty__copy">
+                  <h2>Кажется, её похитили.</h2>
+                  <p>Здесь такой иконки нет. Поищем другую?</p>
+                </div>
                 <button type="button" class="icon-action icon-action--secondary" id="icon-reset">Сбросить фильтры</button>
               </div>
               <div class="icon-pagination" id="icon-pagination">

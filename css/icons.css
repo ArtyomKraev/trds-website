@@ -51,8 +51,13 @@
 .icon-page-button { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; flex-shrink: 0; padding: 0; border-radius: .5rem; background: var(--color-surface-default); }
 .icon-page-button--previous svg { transform: rotate(180deg); }
 .icons-main .icon-page-button:disabled { background: transparent; color: var(--color-content-disabled); }
-.icon-empty { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 4rem 1.5rem; text-align: center; }
-.icon-empty p { color: var(--color-content-secondary); max-width: 26rem; }
+.icons-workspace.is-empty { grid-template-columns: minmax(0, 1fr); }
+.is-empty .icon-catalog { gap: 0; }
+.icon-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; min-height: 36.25rem; padding: 0 1rem 2rem; text-align: center; }
+.icon-empty__art { --color-decorative-orange-content: #ffbba1; display: block; width: 20rem; max-width: 100%; height: auto; aspect-ratio: 320 / 236; flex-shrink: 0; overflow: visible; }
+.icon-empty__copy { display: flex; flex-direction: column; align-items: center; gap: .75rem; max-width: 30rem; }
+.icon-empty p { color: var(--color-content-secondary); font-size: 1rem; line-height: 1.5rem; }
+.icons-main .icon-empty .icon-action { padding-inline: 1.25rem; }
 .icon-inspector { position: sticky; top: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; padding: 1.5rem; border-radius: 1rem; background: var(--color-surface-default); scroll-margin-top: 1.5rem; }
 .icon-inspector-heading { display: flex; flex-direction: column; gap: .5rem; }
 .icon-inspector h2 { overflow-wrap: anywhere; }
@@ -96,6 +101,7 @@
   .icons-main .icon-back:not([hidden]) { display: block; }
 }
 @container (max-width: 520px) {
+  .icon-empty { min-height: 31.25rem; padding-top: 1rem; }
   .icons-search-row { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
   .icons-library-link { justify-content: flex-start; }
   .icon-figma-link { justify-content: center; }

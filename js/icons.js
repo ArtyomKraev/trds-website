@@ -220,6 +220,10 @@
     grid.replaceChildren(fragment);
     grid.hidden = !visible.length;
     document.getElementById('icon-empty').hidden = !!visible.length;
+    document.querySelector('.icons-workspace').classList.toggle('is-empty', !visible.length);
+    document.getElementById('icon-pagination').hidden = !visible.length;
+    if (!visible.length) announce('По этому запросу ничего не найдено. Попробуйте другое название или сбросьте фильтры.');
+    else { clearTimeout(announceTimer); status.textContent = ''; }
     document.getElementById('icon-range').textContent = visible.length
       ? `${formatCount(pageIndex * PAGE_SIZE + 1)}–${formatCount(pageIndex * PAGE_SIZE + visible.length)} из ${formatCount(matching.length)}`
       : 'Найдено: 0';
